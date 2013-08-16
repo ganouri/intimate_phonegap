@@ -165,6 +165,15 @@
                 );
             };
 
+            function _userContact(params, success, error){
+                DataService.userContacts({
+                    token: _user.token
+                }, function(data){
+                    _set('contacts', data.payload);
+                    success(data);
+                }, error);
+            }
+
             return {
                 signup: function (params, success, error) {
 
@@ -261,7 +270,12 @@
                 },
                 getRoomDetails: _getRoomDetails,
                 addContact: function(params, success, error){
-                    console.log(params);
+                    //console.log(params);
+
+                    var contact = {
+                        type: 'email',
+                        email: params.email
+                    };
 
                     if(    angular.isUndefined(params) 
                         || angular.isUndefined(params.email)
@@ -271,7 +285,26 @@
                         token: _user.token,
                         type: 'email',
                         value: params.email
-                    }, success, error);
+                    }, function(data){
+                        //todo: update server API to give back user data (unless we need target user approval) to avoid a request
+                        DataService.userContacts({
+                                token: _user.token
+                            }, function(data){
+                                _set('contacts', data.payload);
+                                success(data);
+                            }, error
+                        );
+                    }, error);
+                },
+                inviteContact: function(params, success, error){
+                    DataService.inviteContact({
+                        token: _user.token,
+                        type: params.type,
+                        contact: params[params.type]
+                    }, function(data){
+                        //todo: update server API to give back user data (unless we need target user approval) to avoid a request
+                        _userContact(params, success, error);
+                    }, error);
                 }
             };
         });

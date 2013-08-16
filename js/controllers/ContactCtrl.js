@@ -5,11 +5,12 @@
         controller("ContactCtrl", function ($scope, UserService, NotificationService) {
             console.log('ContactCtrl');
 
-            $scope.showContact = false;
+            $scope.showAddContact = false;
+            $scope.showInviteContact = false;
             $scope.contacts = UserService.getUser().contacts;
             $scope.symbol = '+';
 
-            console.log($scope.contacts);
+            //console.log($scope.contacts);
 
             $scope.contactSelected = function(contact){ //todo: make a generic directive to deal with lists
 
@@ -21,7 +22,7 @@
                 }
                 contact.selected = contact.selected ? false : true;
 
-                /*
+                
                 UserService.createResc({
                     email: contact.email,
                     rescStorageId: 'resc.snap',
@@ -32,9 +33,9 @@
                     //console.log('back to contactSelected');
                 }, function(msg){
                     //console.log('error:'+msg);
-                    NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)
+                    NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop);
                 });
-                */
+                
 
             };
 
@@ -50,16 +51,32 @@
             };
 
             $scope.addContact = function(){
-                console.log('addContact');
+                //console.log('addContact');
 
                 UserService.addContact({
                     email: $scope.email
                 }, function(data){
-                    //console.log(data);
-                    $scope.navigate('/secure/rooms');
-                }, function(msg){
+                    console.log(data);
+                    $scope.contacts = UserService.getUser().contacts;
+                    $scope.showAddContact = false;
+                }, function(msg, type){
                     //console.log('error:'+msg);
-                    NotificationService.alert(msg, "Alert", "Ok", angular.noop)
+                    //console.log(type);
+                    $scope.showAddContact = false;
+                    $scope.showInviteContact = true;
+                });
+            };
+
+            $scope.inviteContact = function(){
+                UserService.inviteContact({
+                    type: 'email',
+                    email: $scope.email
+                }, function(data){
+                    console.log(data);
+                    $scope.contacts = UserService.getUser().contacts;
+                    $scope.showInviteContact = false;
+                }, function(msg, type){
+                    NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)
                 });
             };
 

@@ -72,8 +72,7 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
     {}
   ] : ContactService.find('');*/
 
-  //console.log(ContactService.load());
-  console.log(ContactService.find(''));
+  //console.log(ContactService.find(''));
 
   window.localStorage.removeItem('resc.snap');
 

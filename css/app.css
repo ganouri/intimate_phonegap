@@ -309,10 +309,11 @@ i.icon-arrow-down{
 	border-top: solid 3px grey;
 }
 
+/*
 #addcontact{
 	position: fixed;
 	bottom: 40%;
-}
+}*/
 
 .rooms p.interact {
 	position: fixed;
@@ -322,3 +323,43 @@ i.icon-arrow-down{
 	line-height: 130%;
 	font-size: 173%;
 }
+
+#inviteContactForm, #addContactForm{
+	width: 100%;
+	background-color: whiteSmoke;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+}
+
+#addContactForm .control-group{
+	position: absolute;
+	top: 23%;
+	left: 8%;
+	width: 100%;
+}
+
+#inviteContactForm .control-group{
+	position: absolute;
+	top: 24%;
+	font-size: 17px;
+}
+
+#inviteContactForm .control-label{
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+}
+
+#invitecontact, #addcontact{
+	position: absolute;
+	top: 45%;
+	width: 30%;
+}
+
+#invitecontactcancel, #addcontactcancel{
+	position: absolute;
+	top: 45%;
+	margin-left: 31%;
+}
+

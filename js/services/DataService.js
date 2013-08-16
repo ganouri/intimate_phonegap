@@ -266,6 +266,25 @@
                         if(    angular.isUndefined(data) 
                             || angular.isUndefined(data.payload) 
                             || angular.isDefined(data.errors) 
+                        ){error(data.errors[Object.keys(data.errors)[0]], Object.keys(data.errors)[0]); return;};
+
+                        //bubble
+                        success(data);
+                    })
+                    .error(function(data, status, headers, config) {
+                        error(status);
+                    });
+                },
+                inviteContact: function(params, success, error){
+                    $http
+                    .get(AppConfig.CFG.URI + '/secure/'+params.token+'/contact/invite/'+params.contact)
+                    .success(function(data, status, header, config) {
+
+                        console.log(data);
+
+                        if(    angular.isUndefined(data) 
+                            || angular.isUndefined(data.payload) 
+                            || angular.isDefined(data.errors) 
                         ){error(data.errors[Object.keys(data.errors)[0]]); return;};
 
                         //bubble

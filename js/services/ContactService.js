@@ -6,9 +6,6 @@
 
 
             return {
-                load: function(){
-                    return 'ContactService loaded';
-                },
                 create: function () {
                     return navigator.contacts.create()
                 },

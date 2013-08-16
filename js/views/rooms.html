@@ -1,5 +1,5 @@
 <div class="container page rooms" >
-    <i class="icon-off" ng-click="logout()"></i>
+    <i class="icon-off" ng-click="logout()" ng-hide="roomSelected && user.authenticated"></i>
     <form class="form-search" >
       <div class="form-content" ng-show="! user.authenticated">
         <p>Enter your Account<br> Code to access your Kokoons</p>
@@ -14,7 +14,7 @@
     <ul id="room-list" ng-show="! roomSelected && user.authenticated">
       <!--li ng-repeat="room in user.rooms" ng-click="navigate('secure/room/'+room.id)"-->
       <li ng-repeat="room in user.rooms" ng-click="selectRoom(room._id)">
-        <p ng-repeat="member in room.members">{{member}}</p>
+        <p ng-repeat="member in room.members | isContact:user.contacts">&lt; {{member | contactNickname:this}} roomate &gt;</p>
       </li>
     </ul>
     <div ng-show="roomSelected && user.authenticated">
