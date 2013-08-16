@@ -1,0 +1,32 @@
+<div class="container page rooms" >
+    <i class="icon-off" ng-click="logout()"></i>
+    <form class="form-search" >
+      <div class="form-content" ng-show="! user.authenticated">
+        <p>Enter your Account<br> Code to access your Kokoons</p>
+        <input type="password" class="input-large search-query" placeholder="Password" id="user-password" ng-model="password">
+        <button type="submit" class="btn btn-danger" id="user-auth" ng-click="login()" ng-show="password.length>0">Login</button>
+      </div>
+      <span ng-show="! user.authenticated || user.rooms.length == 0">
+        <p class="interact">Start interacting now<br> with new or existing Kokoon contacts</p>
+        <i class="icon-arrow-down"></i>
+      </span>
+    </form>
+    <ul id="room-list" ng-show="! roomSelected && user.authenticated">
+      <!--li ng-repeat="room in user.rooms" ng-click="navigate('secure/room/'+room.id)"-->
+      <li ng-repeat="room in user.rooms" ng-click="selectRoom(room._id)">
+        <p ng-repeat="member in room.members">{{member}}</p>
+      </li>
+    </ul>
+    <div ng-show="roomSelected && user.authenticated">
+      <div class="room-label">
+        <i class="icon-th-large" ng-click="deselectRoom()"></i>
+        <span>Room shared with {{roomSelected.member}}</span>
+      </div>
+      <div class="list" ng-show="roomSelected.interactions.length > 0">
+          <div class="interaction-done" ng-repeat="interaction in roomSelected.interactions">
+              {{interaction.content}}
+          </div>
+      </div>
+  </div>
+    <button type="submit" class="btn btn-danger" id="interact" ng-click="snap()" >+</button><!-- bypass interact -->
+</div>

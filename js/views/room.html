@@ -1,0 +1,8 @@
+<div class="container page room">
+    <div class="room-label">Room shared with {{room.member}}</div>
+    <div class="list" ng-show="interactions.length > 0">
+        <div class="interaction-done" ng-repeat="interaction in interactions" ng-click="interactionsDetails(interaction)">
+            {{interaction.info}}
+        </div>
+    </div>
+</div>

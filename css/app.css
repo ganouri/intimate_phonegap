@@ -1,0 +1,324 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+body{
+  margin: 0px auto;
+}
+
+.page{
+	background-color: whitesmoke;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.starter {
+	background: url("../img/bg-landing.jpg") no-repeat fixed;
+	background-size: 100%;
+}
+
+.btn {
+	height: 73px;
+	font-size: 32px;
+	line-height: 38px;
+	left: 20%;
+	right: 20%;
+	font-weight: bold;
+	letter-spacing: 1.4px;
+	position: fixed;
+	bottom: 1%;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	box-shadow: 5px 5px 5px #888;
+	border-radius: 2%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent; /* For some Androids */
+}
+
+.tapped {
+  -webkit-transform: scale3d(0.9, 0.9, 1);
+}
+
+#signup {
+	bottom: 95px
+}
+
+.form-horizontal{
+	position: relative;
+	top: 20%;
+}
+
+.form-horizontal .control-group {
+	margin: 6% 5% 20% 5%;
+}
+
+.form-horizontal .control-label {
+	margin-right: 19px;
+	float: left;
+	width: 20%;
+	padding-top: 5px;
+	text-align: right;
+	margin: 0 7% 0 0;
+	font-size: 175%;
+	line-height: 210%;
+}
+
+.control-group input {
+	width: 70%;
+	height: 55px;
+	font-size: 32px;
+	line-height: 38px;
+	text-align: center;
+}
+
+
+.form-horizontal .control-group {
+	margin: 6% 5% 20% 5%;
+}
+
+
+.control-group input[type="checkbox"] {
+width: 30px;
+margin: 0 3% 0 0;
+}
+
+.register .checkbox {
+	min-height: 18px;
+	padding-left: 4%;
+	margin-left: 23%;
+	margin-top: 1%;
+	line-height: 2.5;
+	font-size: 137%;
+	line-height: 299%;
+}
+
+.register p {
+	font-size: 118%;
+	left: 21%;
+	right: 20%;
+	position: fixed;
+	bottom: 11%;
+}
+
+ul#room-list{
+	margin: 0 !important;
+	height: 79%;
+	border-bottom: solid 1px grey;
+	z-index: 10;
+	position: absolute;
+	width: 100%;
+	overflow: auto;
+	top: 30px;
+	/*overflow-y: hidden;*/
+	-webkit-overflow-scrolling: touch;
+}
+
+#room-list li{
+	width: 45%;
+	list-style: none;
+	float: left;
+	border: 1px solid #000;
+	border-radius: 4%;
+	height: 23%;
+	margin: 5% 0% 2% 3%;
+	background-color: rgba(233, 230, 230, 0.64);
+	-webkit-box-shadow: 5px 5px 5px #888;
+	box-shadow: 5px 5px 5px #888;
+}
+
+#interact {
+	border-top: solid 13px grey;
+	z-index: 10;
+	border-radius: 52px;
+	width: 160px;
+	height: 110px;
+	font-size: 5em;
+	left: 32.5%;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	box-shadow: 5px 5px 5px #888;
+}
+
+#interact:hover{
+	border-top: solid 4px grey;
+}
+
+.rooms .form-search{
+	/*z-index: 100;*/
+	position: absolute;
+	top: 30px;
+	width: 100%;
+	background-color: whitesmoke;
+	opacity: 0.95;
+	height: 65%;
+}
+
+.rooms .icon-off{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.form-content{
+	margin: 36% 0 0 0;
+	text-align: center;
+	line-height: 130%;
+	font-size: 173%;
+}
+
+.search-query{
+	text-align:center;
+}
+
+.search-query + p{
+	bottom: 21%;
+	position: fixed;
+	left: 9%;
+}
+
+i.icon-arrow-down{
+	bottom: 20%;
+	position: fixed;
+	left: 47%;
+}
+
+#user-password{
+	height: 55px;
+	font-size: 32px;
+	line-height: 38px;
+	width: 80%;
+	font-weight: bold;
+}
+
+#interact-exe{
+	font-size: 23px;
+	bottom: -6px;
+	left: 30%;
+	width: 40%;
+	border-top-right-radius: 70px;
+	border-top-left-radius: 70px;
+	position: absolute;
+	border-bottom-left-radius: 69px;
+	border-bottom-right-radius: 69px;
+	height: 12%;
+}
+
+#interact-back{
+	left: 3%;
+	width: 180px;
+}
+
+#interact-send{
+	width: 180px;
+	left: 60%;
+}
+
+.interaction{
+	height: 94%;
+	background-color:black;
+}
+.interaction img{
+	width: 100%;
+	height: 100%;
+}
+
+.room-label i{
+	position: absolute;
+	left: 15px;
+	top: 17px;
+}
+
+.room-label{
+	background-color: #E8E8E8;
+	opacity: 0.8;
+	height: 6%;
+	text-align: center;
+	width: 100%;
+	line-height: 53px;
+	font-weight: bold;
+	font-size: 27px;
+}
+
+#contactSearch {
+	margin: 20px 15% 0 15%;
+	width: 70%;
+	height: 44px;
+	line-height: 38px;
+	font-size: 29px;
+	font-weight: bold;
+}
+
+#contactSelection{
+	width: 34%;
+	border-radius: 30px;
+	left: 33%;
+}
+
+.contact:nth-child(odd) {background-color: #FFF}
+.contact:nth-child(even) {background-color: whiteSmoke}
+.selected-true{
+	background-color: #ffa5a5 !important;
+	color: white !important;
+	font-weight: bold !important;
+}
+.contact{
+	height: 60px;
+	text-align: left;
+	line-height: 64px;
+	font-size: 31px;
+	color: #005df2;
+	font-weight: normal;
+}
+.interaction-done{
+	margin: 20px;
+	padding: 18px;
+	height: 35px;
+	background-color: #F00;
+	line-height: 40px;
+	font-size: 25px;
+	font-weight: 800;
+}
+
+#user-auth{
+	position: fixed;
+	top: 350px;
+	border-top: solid 9px grey;
+	border-bottom: solid 0px grey;
+}
+
+#user-auth:hover{
+	position: fixed;
+	top: 350px;
+	border-top: solid 3px grey;
+}
+
+#addcontact{
+	position: fixed;
+	bottom: 40%;
+}
+
+.rooms p.interact {
+	position: fixed;
+	bottom: 21%;
+	left: 10%;
+	text-align: center;
+	line-height: 130%;
+	font-size: 173%;
+}

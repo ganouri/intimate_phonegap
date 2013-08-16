@@ -1,0 +1,17 @@
+{
+  "name": "angular-gesture",
+  "version": "1.1.5",
+  "main": "./ngMobile/mobile.js",
+  "dependencies": {
+    "angular-unstable": "~1.1.5"
+  },
+  "gitHead": "f96c86a9a97d6df3519c397e08ae84abf2a62c8e",
+  "readme": "h1. Mobile Gestures for Angular JS !https://travis-ci.org/cotag/angular-gesture.png!:https://travis-ci.org/cotag/angular-gesture\r\n\r\nTo use with http://yeoman.io/ do the following:\r\n\r\n# Open bower.json or components.json\r\n# Add @\"angular-gesture\": \"~1.1.5\"@ to your dependency list\r\n# Run @bower install@\r\n# In your application you can now add: (depending on what you need)\r\n#* @<script src=\"components/angular-gesture/ngMobile/mobile.js\"></script>@\r\n#* @<script src=\"components/angular-gesture/ngMobile/directive/ngTouch.js\"></script>@\r\n#* @<script src=\"components/angular-gesture/ngMobile/directive/ngClick.js\"></script>@\r\n#* @<script src=\"components/angular-gesture/ngMobile/directive/ngHold.js\"></script>@\r\n#* @<script src=\"components/angular-gesture/ngMobile/directive/ngSwipe.js\"></script>@\r\n#* @<script src=\"components/angular-gesture/ngMobile/directive/ngDrag.js\"></script>@\r\n# OR\r\n#* @<script src=\"components/angular-gesture/mobile.min.js\"></script>@\r\n\r\n\r\nh2. Supports the following gestures out of the box\r\n\r\n* hold\r\n* click (tap)\r\n* double click (double tap)\r\n* swipe (up, down, left and right)\r\n* drag ( \"demo\":http://jsfiddle.net/ew7Ta/1/ )\r\n\r\nInspired by \"Hammer.js\":https://github.com/EightMedia/hammer.js and \"AngularJS Mobile\":https://github.com/angular/angular.js/tree/master/src/ngMobile (API compatible)\r\n",
+  "readmeFilename": "README.textile",
+  "_id": "angular-gesture@1.1.5",
+  "description": "h1. Mobile Gestures for Angular JS !https://travis-ci.org/cotag/angular-gesture.png!:https://travis-ci.org/cotag/angular-gesture",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cotag/bower-angular-gesture.git"
+  }
+}

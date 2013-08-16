@@ -1,0 +1,22 @@
+<div class="container page contacts">
+    <form class="form-search">
+        <input id="contactSearch" type="text" ng-model="contactSearch" class="input-medium search-query" placeholder="search contacts"/>
+    </form>
+    <div class="list">
+        <div class="contact selected-{{contact.selected}}" ng-repeat="(key,contact) in contacts" id="contact_{{key}}" ng-click="contactSelected(contact)">
+            {{contact.nickname}}
+        </div>
+    </div>
+    <form class="form-horizontal" ng-show="showContact">
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <input type="text" id="inputEmail" placeholder="Email" ng-model="email">
+        </div>
+        <button type="submit" class="btn btn-danger" ng-click="addContact()" ng-show="email.length>0" id="addcontact">Add</button>
+    </form>
+    <!--button type="submit" class="btn btn-danger" id="contactSelection" ng-click="contactSelection()">Select</button-->
+    <button type="submit" class="btn btn-danger" id="interact" ng-click="showContact=!showContact" >
+        <span ng-show="! showContact">+</span>
+        <span ng-show="showContact">-</span>
+    </button>
+</div>

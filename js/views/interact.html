@@ -1,0 +1,9 @@
+<div class="container page interaction">
+    <div class="room">Open room</div>
+    <div class="interaction">
+        <video ng-hide="snapped" src="" autoplay></video>
+        <canvas ng-hide="snapped" id='canvas' width='100' height='100'></canvas> 
+        <!--img id='canvas' ng-show="snapped" src=""/-->
+    </div>
+    <button type="submit" class="btn btn-danger" id="interact-exe" ng-click="interact('snap')">Shoot</button>
+</div>

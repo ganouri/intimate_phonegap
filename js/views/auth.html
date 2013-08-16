@@ -1,0 +1,19 @@
+<div class="container page register">
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <input type="text" id="inputEmail" placeholder="Email" ng-model="user.email">
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+            <input type="password" id="inputPassword" placeholder="Password" ng-model="user.password">
+            <label class="checkbox" ng-show=" action.type=='signup' ">
+              <input type="checkbox"> Show password
+            </label>
+        </div>
+        <div class="control-group">
+            <p ng-show=" action.type=='signup' ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By clicking on "Create account",<br/> you accept our <a href="#/termsandconditions">Terms and conditions</a></p>
+                <button type="submit" class="btn btn-danger" id="user-login" ng-click="execute()">{{action.label}}</button>
+        </div>
+    </form>
+</div>
