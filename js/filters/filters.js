@@ -49,6 +49,13 @@
             return function(contact){
                 return contact.nickname.indexOf('awaiting registration') > -1 ? contact.email : contact.nickname;
             }
+        })
+
+        .filter('interactionView', function(){
+            return function(input){
+                //console.log(Object.keys(input));
+                return input['resourceId'];
+            }
         });
 
         //

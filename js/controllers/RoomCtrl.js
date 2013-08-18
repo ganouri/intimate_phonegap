@@ -11,6 +11,7 @@
               $scope.navigate("/");
             }
 
+            //console.log($location.search());
             /*
             $scope.authenticated = UserService.get('authenticated');
             $scope.rooms = UserService.get('rooms');
@@ -45,18 +46,22 @@
                 });
             };
 
+            //todo
+            //get user name
+            //get interactions list
+            //for each interaction, get media
             $scope.selectRoom = function(roomId){
                 //$scope.roomSelected = UserService.getRoom(roomId);
                 UserService.getRoomDetails({
                     roomId: roomId
                 }, function(data){
 
-                    console.log($scope.user);
+                    $scope.room = data.payload;
 
                     $scope.roomSelected = {
-                        roomId: roomId,
-                        member: 'default'
+                        roomId: roomId
                     };
+
                     $location.search($scope.roomSelected); //{a: "b", c: true} 
                     
 
@@ -66,6 +71,7 @@
             };
 
             $scope.deselectRoom = function(){
+                $scope.room = undefined;
                 $scope.roomSelected = undefined;
                 $location.search({});
             };
@@ -74,7 +80,33 @@
                 $scope.navigate('/interaction/snap');
             };
 
+            $scope.postMessage = function(){
+                console.log($scope.message);
+
+                UserService.postMessage({
+                    roomId: $scope.room._id,
+                    content: $scope.message
+                }, function(data){
+                    console.log(data);
+                }, function(){
+                    NotificationService.alert('Failed to send message', "Alert", "Ok", angular.noop)
+                });
+
+                $scope.message = '';
+            };
+
+            $scope.isContact = function(user){
+                return angular.isDefined($scope.user.contacts[user]);
+            };
+
+            $scope.selectInteraction = function(resourceId){
+                console.log(resourceId);
+            };
+
             //var function
+            $scope.testingNgMobile = function(event){
+                console.log(event);
+            };
 
         });
 

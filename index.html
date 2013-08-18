@@ -98,17 +98,20 @@
           </style>
     </head>
     <body>
-        <div ui-view ng-animate="{enter:'fade-enter'}"></div>
+        <mobile-view ui-view ng-animate="{enter:'fade-enter'}"></mobile-view>
         <!-- #Cordova# -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script><!-- #bridged to angularjs -->
         <!-- #/Cordova# -->
         <!-- #Components# -->
-        <!--script type="text/javascript" src="components/angular-unstable/angular.js"></script--><!-- 1.1.5 fail to work animate with ui-router -->
-        <script type="text/javascript" src="components/angular-ui-router/angular-1.1.4.js"></script>
+        <script type="text/javascript" src="components/angular-unstable/angular.js"></script><!-- 1.1.5 fail to work animate with ui-router -->
+        <!--script type="text/javascript" src="components/angular-ui-router/angular-1.1.4.js"></script-->
         <script type="text/javascript" src="components/angular-gesture/mobile.min.js"></script>
         <script type="text/javascript" src="components/angular-gesture/ngMobile/directive/ngClick.js"></script>
         <script type="text/javascript" src="components/angular-gesture/ngMobile/directive/ngSwipe.js"></script>
+        <script type="text/javascript" src="components/angular-gesture/ngMobile/directive/ngTouch.js"></script>
+        <script type="text/javascript" src="components/angular-gesture/ngMobile/directive/ngHold.js"></script>
+        <script type="text/javascript" src="components/angular-gesture/ngMobile/directive/ngDrag.js"></script>
         <script type="text/javascript" src="components/angular-ui-router/angular-ui-router.js"></script>
         <script type="text/javascript" src="components/angular-cache/angular-cache.js"></script>
         <script type="text/javascript" src="components/md5.js"></script>

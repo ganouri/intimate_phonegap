@@ -24,7 +24,7 @@
                 console.log(ft);
 
                 if( window.navigator.platform != 'Win32' ){
-                    ft.upload(imageURI, encodeURI(uri), win, fail, options);  
+                    ft.upload(imageURI, encodeURI(uri), success, error, options); 
                 }else{
                     //ripple environment
                     success({"payload":"8a3f7c20-0320-11e3-bd7e-a16eaf015447"});
@@ -85,7 +85,7 @@
                     });
                 },
                 getRoom: function(params, success, error){
-
+                    console.log('getRoom');console.log(params);
                     $http
                     .get(AppConfig.CFG.URI + '/secure/'+params.token+'/roomid/'+params.room)
                     .success(function(data, status, header, config) {
@@ -149,14 +149,32 @@
                         error(status);
                     });
                 },
-                getResc: function(params, success, error){
+                getMedia: function(params, success, error){
+                    console.log('getMedia');
+
+                    var fileTransfer = new FileTransfer();
+                    var uri = encodeURI(AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.room+"/resource/"+params.rescId+"/media/"+params.mediaId);
+
+                    fileTransfer.download(
+                        uri,
+                        'test.jpg',
+                        function(entry) {
+                            console.log("download complete: " + entry.fullPath);
+                        },
+                        function(error) {
+                            console.log("download error source " + error.source);
+                            console.log("download error target " + error.target);
+                            console.log("upload error code" + error.code);
+                        },
+                        false,
+                        {}
+                    );
+
+                    /*
                     $http
                     .get(AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.room+"/resource/"+params.rescId+"/media/"+params.mediaId)
                     .success(function(data, status, header, config) {
-                        if(    angular.isUndefined(data) 
-                            || angular.isUndefined(data.payload) 
-                            || angular.isDefined(data.errors) 
-                        ){error('Error getting ressource'); return;};
+                        console.log(status);
 
                         //bubble
                         success(data);
@@ -164,9 +182,10 @@
                     .error(function(data, status, headers, config) {
                         error(status);
                     });
+                    */ 
                 },
                 uploadResc: function(params, success, error){
-                    console.log(params)
+                    console.log('uploadResc');console.log(params)
                     
                     _uploadPhoto(params.resc, AppConfig.CFG.URI + '/secure/'+params.token+'/media/', success, error);
 
@@ -207,9 +226,13 @@
 
                 },
                 createRsrc: function(params, success, error){
+                    console.log('createRsrc');console.log(params);
                     var form = {
-                        type: params.type,
-                        mediaId: params.mediaId
+                        type: "basic",
+                        media:{
+                            type: params.type,
+                            content: params.content
+                        }
                     };
 
                     $http
@@ -238,11 +261,30 @@
                     });
                 },
                 ascResc: function(params, success, error){
+                    console.log('ascResc');console.log(params);
                     $http
                     .get(AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.roomId+"/asc/"+params.rescId)
                     .success(function(data, status, header, config) {
 
                         console.log(data);
+                        
+                        if(    angular.isUndefined(data) 
+                            || angular.isUndefined(data.payload) 
+                            || angular.isDefined(data.errors) 
+                        ){error('Wrong parameters'); return;};
+
+                        //bubble
+                        success(data);
+                    })
+                    .error(function(data, status, headers, config) {
+                        error(status);
+                    });
+                },
+                userResc: function(params, success, error){
+
+                    $http
+                    .post(AppConfig.CFG.URI + '/secure/'+params.token+'/resources/')
+                    .success(function(data, status, header, config) {
                         
                         if(    angular.isUndefined(data) 
                             || angular.isUndefined(data.payload) 

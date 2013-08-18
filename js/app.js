@@ -78,7 +78,7 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
 
   /* Common functions library */
   $rootScope.navigate = function(path){
-    //console.log('navigate:' + path);
+    console.log('navigate:' + path);
     $location.path(path);
   };
 

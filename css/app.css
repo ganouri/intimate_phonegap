@@ -287,6 +287,7 @@ i.icon-arrow-down{
 	font-weight: normal;
 }
 .interaction-done{
+	width: 60%;
 	margin: 20px;
 	padding: 18px;
 	height: 35px;
@@ -363,3 +364,30 @@ i.icon-arrow-down{
 	margin-left: 31%;
 }
 
+#interactions{
+	background-color: white;
+	height: 510px;
+}
+
+#inputQuickMessage{
+	height: 70px;
+	width: 300px;
+	font-size: 25px;
+	line-height: 30px;
+	margin: 5%;
+	resize: none;
+	bottom: 110px;
+	position: absolute;
+}
+
+#postQuickMessage{
+	position: absolute;
+	bottom: 152px;
+	width: 108px;
+	height: 60px;
+	left: 353px;
+}
+
+.right{
+	margin-left: 29%
+}

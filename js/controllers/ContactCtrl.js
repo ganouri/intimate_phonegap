@@ -29,7 +29,8 @@
                     filename: 'MyTest.jpg'
                 }, function(data){
                     var roomId = data.roomId;
-                    $scope.navigate('/secure/rooms?room='+roomId);
+                    //console.log(roomId);
+                    $scope.navigate('/secure/rooms?roomId='+roomId); //not working yet
                     //console.log('back to contactSelected');
                 }, function(msg){
                     //console.log('error:'+msg);
@@ -38,6 +39,21 @@
                 
 
             };
+
+            /*$scope.uploadFile = function((files) {
+                var fd = new FormData();
+                //Take the first selected file
+                fd.append("file", files[0]);
+
+                $http.post(uploadUrl, fd, {
+                    withCredentials: true,
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                }).success( ...all right!... ).error( ..damn!... );
+
+
+                console.log(files[0]);
+            });*/
 
             $scope.contactSelection = function(){
                 //todo: look for the selected contact, if none: notification "You have to select a contact"
