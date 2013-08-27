@@ -16,6 +16,9 @@
 
             $scope.execute = function(){
 
+                console.log('execute:'+$scope.action.type);
+                console.log('execute:'+$scope.user);
+
             	switch($scope.action.type){
             		case 'signup':
             		case 'login':

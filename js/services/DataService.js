@@ -5,32 +5,62 @@
         .service("DataService", function (AppConfig, CacheService, StorageService, $http, $rootScope){
             console.log('DataService');
 
-            //todo: error function
-
+            // uploadResc:file:///mnt/sdcard/Android/data/com.intimate_app.hybrid/cache/1377324147284.jpg
             function _uploadPhoto(imageURI, uri, success, error) {
                 var options = new FileUploadOptions();
-                options.fileKey="file";
-                options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-                options.mimeType="image/jpeg";
+                
+                options.fileKey  = "file";
+                options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+                options.mimeType = "image/jpeg";
 
                 var params = {};
-                params.value1 = "test";
-                params.value2 = "param";
+                params.client = "phonegap";
 
                 options.params = params;
 
                 var ft = new FileTransfer();
 
-                console.log(ft);
-
-                if( window.navigator.platform != 'Win32' ){
-                    ft.upload(imageURI, encodeURI(uri), success, error, options); 
-                }else{
+                //if( window.navigator.platform != 'Win32' ){
+                
+                ft.upload(imageURI, encodeURI(uri), success, function(e){
+                    //service error
+                    error(e);
+                }, options); 
+                
+                /*}else{
                     //ripple environment
                     success({"payload":"8a3f7c20-0320-11e3-bd7e-a16eaf015447"});
-                }
+                }*/
                 
-            }
+            };
+
+            function _downloadPhoto(imageURI, uri, success, error) {
+                var options = new FileUploadOptions();
+                
+                /*options.fileKey  = "file";
+                options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+                options.mimeType = "image/jpeg";
+
+                var params = {};
+                params.client = "phonegap";
+
+                options.params = params;*/
+
+                var ft = new FileTransfer();
+
+                //if( window.navigator.platform != 'Win32' ){
+                
+                ft.download(encodeURI(uri), imageURI, success, function(e){
+                    //service error
+                    error(e);
+                }, options); 
+                
+                /*}else{
+                    //ripple environment
+                    success({"payload":"8a3f7c20-0320-11e3-bd7e-a16eaf015447"});
+                }*/
+                
+            };
 
             return {
                 signup: function(params, success, error){
@@ -52,6 +82,7 @@
                     });
                 },
                 login: function(params, success, error){
+
                     $http
                     .post(AppConfig.CFG.URI + '/login', params)
                     .success(function(data, status, header, config) {
@@ -67,6 +98,7 @@
                     .error(function(data, status, headers, config) {
                         error(status);
                     });
+                    
                 },
                 userDetails: function(params, success, error){
                      $http
@@ -152,9 +184,23 @@
                 getMedia: function(params, success, error){
                     console.log('getMedia');
 
-                    var fileTransfer = new FileTransfer();
-                    var uri = encodeURI(AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.room+"/resource/"+params.rescId+"/media/"+params.mediaId);
+                    var uri = AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.room+"/resource/"+params.rescId+"/media/"+params.mediaId;
 
+                    // uploadResc:file:///mnt/sdcard/Android/data/com.intimate_app.hybrid/cache/1377324147284.jpg
+
+                    var imageURI = 'file:///mnt/sdcard/Android/data/com.intimate_app.hybrid/cache/'+params.mediaId+'.jpg';
+                    _downloadPhoto(imageURI, uri, function(r){
+                        console.log('success:'+imageURI);
+                        success({
+                            'mediaId': params.mediaId,
+                            'mediaType': params.mediaType,
+                            'rescId': params.rescId,
+                            'filePath': imageURI
+                        });
+                    }, error);
+                    
+                    
+                    /*
                     fileTransfer.download(
                         uri,
                         'test.jpg',
@@ -168,7 +214,7 @@
                         },
                         false,
                         {}
-                    );
+                    );*/
 
                     /*
                     $http
@@ -185,48 +231,16 @@
                     */ 
                 },
                 uploadResc: function(params, success, error){
-                    console.log('uploadResc');console.log(params)
-                    
-                    _uploadPhoto(params.resc, AppConfig.CFG.URI + '/secure/'+params.token+'/media/', success, error);
+                    console.log('uploadResc:'+params.resc);
 
-                    
-
-                    /*var config = {
-                        method : 'POST',
-                        url    : AppConfig.CFG.URI + '/secure/'+params.token+'/media/',
-                        headers: {
-                            'Content-Type': false
-                            //'Content-Type': 'multipart/form-data',
-                            //'Content-Disposition': 'form-data; name="my_file"; filename="'+params.filename+'"',
-                            //'Content-Type': 'image/jpeg'
-                        },
-                        transformRequest: function (data) {
-                            var formData = new FormData();
-                            formData.append('file', params.resc, params.filename);
-                            return formData;
-                        }
-                    };
-
-                    $http(config)
-                    .success(function(data, status, header, config) {
-                        console.log(data);
-
-                        if(    angular.isUndefined(data) 
-                            || angular.isUndefined(data.payload) 
-                            || angular.isDefined(data.errors) 
-                        ){error('Error creating the ressource'); return;};
-
-                        //bubble
-                        success(data);
-                    })
-                    .error(function(data, status, headers, config) {
-                        error(status);
-                    });
-                    */
-
+                    //todo: create a phonegap service
+                    _uploadPhoto(params.resc, AppConfig.CFG.URI + '/secure/'+params.token+'/media/', function(r){
+                        success(JSON.parse(r.response));
+                    }, error);
                 },
                 createRsrc: function(params, success, error){
-                    console.log('createRsrc');console.log(params);
+                    console.log('createRsrc');
+
                     var form = {
                         type: "basic",
                         media:{

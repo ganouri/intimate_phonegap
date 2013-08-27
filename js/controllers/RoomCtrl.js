@@ -24,7 +24,7 @@
                     email    : $scope.user.email,
                     password : $scope.password
                 }, function(){
-                    $scope.user = UserService.getUser();
+                    //$scope.user = UserService.getUser();
                     console.log($scope.user);
                 }, function(msg){
                     //console.log('error:'+msg);
@@ -52,9 +52,12 @@
             //for each interaction, get media
             $scope.selectRoom = function(roomId){
                 //$scope.roomSelected = UserService.getRoom(roomId);
+                console.log('room selected:'+roomId);
                 UserService.getRoomDetails({
                     roomId: roomId
                 }, function(data){
+
+                    console.log(data);
 
                     $scope.room = data.payload;
 
@@ -67,6 +70,19 @@
 
                 }, function(){
                     NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)
+                }, function(params){
+
+                    switch(params.type){
+                        case 'image':
+                            document.getElementById(params.mediaId).setAttribute('src', params.filePath);
+                        break;
+                        default:
+                            //document.getElementById(params.rescId).innerHTML=params.rescId+params.type;
+                        break;
+                    }
+
+                    //document.getElementById(params.rescId).innerHTML=params.rescId+params.type;
+                    
                 });
             };
 
@@ -106,6 +122,15 @@
             //var function
             $scope.testingNgMobile = function(event){
                 console.log(event);
+            };
+
+            //model: rooms or interactions
+            $scope.refresh = function(model){ 
+                UserService.getRooms({}, function(){
+                    console.log('rooms refreshed');
+                }, function(){
+                   NotificationService.alert('Failed to resfresh rooms', "Alert", "Ok", angular.noop) 
+                });
             };
 
         });

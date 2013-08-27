@@ -44,6 +44,7 @@
                         authHash: _hashPassword(params.email, params.password, false)
                     }, function(data){
 
+
                         var user = {
                             email: params.email,
                             token: data.payload
@@ -60,6 +61,7 @@
                             token: _user.token
                         }, function(data){
 
+                            //get rooms
                             DataService.userRooms({
                                     token: _user.token
                                 }, function(data){
@@ -72,34 +74,45 @@
                                     });
 
                                     _set('rooms', rooms);
+                                    //console.log(rooms);
+                                    //console.log(_user);
+                                    
 
-                                    DataService.userContacts({
-                                            token: _user.token
-                                        }, function(data){
-                                            //console.log('userContacts');
-                                            //console.log(data)
-
-                                            _set('contacts', data.payload);
-
-                                            DataService.userResc({
-                                                    token: _user.token
-                                                }, function(data){
-
-                                                    var resources = {};
-                                                    angular.forEach(data.payload, function(resc){
-                                                        resources[resc._id] = resc;
-                                                    });
-
-                                                    _set('resources', resources);
-
-                                                    success();
-                                                }, error
-                                            );
-                                            //success();
-                                        }, error
-                                    );
                                 }, error
                             );
+
+                            //get contacts
+                            DataService.userContacts({
+                                    token: _user.token
+                                }, function(data){
+                                    //console.log('userContacts');
+                                    //console.log(data)
+
+                                    _set('contacts', data.payload);
+                                    //console.log(data.payload);
+                                    //console.log(_user);
+
+                                }, error
+                            );
+
+                            //get resources
+                            DataService.userResc({
+                                    token: _user.token
+                                }, function(data){
+
+                                    var resources = {};
+                                    angular.forEach(data.payload, function(resc){
+                                        resources[resc._id] = resc;
+                                    });
+
+                                    _set('resources', resources);
+                                    //console.log(resources);
+                                    //console.log(_user);
+
+                                }, error
+                            );
+
+                            success(); //call back Controller
 
                             /*var roomsIdList = Object.keys(data.payload.rooms);
                             if(roomsIdList.length > 0){
@@ -155,7 +168,8 @@
                 );
             };
 
-            var _getRoomDetails = function(params, success, error){
+            var _getRoomDetails = function(params, success, error, view){
+                console.log('_getRoomDetails:'+params.roomId)
 
                 if(    angular.isUndefined(params) 
                     || angular.isUndefined(params.roomId) 
@@ -164,19 +178,62 @@
                 var roomId = params.roomId;
 
                 function processRoom(data){
-                    var roomDetailsData = data;
+                    //var roomDetailsData = data;
                     var coorList = Object.keys(data.payload.corr);
 
-                    var rescId = data.payload.corr[coorList[0]].resourceId;
+                    //var rescId = data.payload.corr[coorList[0]].resourceId;
 
+                    angular.forEach(coorList, function(coorId){
+                        
+                        (function(resc, coorId){
+
+                            //setTimeout(function(){
+                                var rescId = resc._id;
+
+                                switch(resc.media.type){
+                                    case 'image':
+                                        console.log('image, roomId:' +roomId +', rescId:'+rescId);
+                                        DataService.getMedia({
+                                            token: _user.token,
+                                            room: roomId,
+                                            rescId: rescId,
+                                            mediaId: resc.media.content,
+                                            mediaType: resc.media.type
+                                        }, function(data){
+                                            //StorageService.put('test', data);
+                                            //success(roomDetailsData);
+                                            view({
+                                                'mediaId': data.mediaId, //resc.media.content,
+                                                'rescId': data.rescId,
+                                                'type': data.mediaType, //resc.media.type,
+                                                'filePath': data.filePath //'./img/1b45a010-0c58-11e3-ba4a-cd66d4712bf7.jpg'
+                                            });
+                                        }, error);
+
+                                    break;
+                                    default:
+                                        console.log('default');
+                                    break;
+                                }
+
+                            //}, 2000);
+                            
+                        })(_user.resources[data.payload.corr[coorId].resourceId], coorId);
+
+                    });
+
+                    console.log('debug');
+                    success(data);
+
+                    /*
                     if(coorList[0] && _user.resources[rescId]){
 
                         var resc = _user.resources[rescId];
                         console.log(resc);
 
                         switch(resc.media.type){
-                            /*case 'image':
-                                console.log('image');
+                            case 'image':
+                                console.log('image, roomId:' +roomId +', rescId:'+rescId);
                                 DataService.getMedia({
                                     token: _user.token,
                                     room: roomId,
@@ -184,11 +241,12 @@
                                     mediaId: resc.media.content
                                 }, function(data){
                                     //StorageService.put('test', data);
-                                    success(roomDetailsData);
+                                    //success(roomDetailsData);
                                 }, error);
-                            break;*/
+
+                            break;
                             default:
-                                //console.log('default');
+                                console.log('default');
                                 success(data);
                             break;
                         }
@@ -196,11 +254,13 @@
                     }else{
                         success(data);
                     }
+                    */
 
                     //.get(AppConfig.CFG.URI + '/secure/'+params.token+'/room/'+params.room+"/resource/"+params.rescId+"/media/"+params.mediaId)
                 }
 
                 if( angular.isDefined(_user.rooms[roomId]) ){
+                    console.log('room read from cache');
                     processRoom({
                         payload: _user.rooms[roomId]
                     });
@@ -281,13 +341,16 @@
                 logout: _logout,
                 getDetails: _getDetails,
                 getUser: function(){
-                    return {
+                    /*
+                    {
                         authenticated: _user.authenticated,
                         rooms: _user.rooms,
                         contacts: _user.contacts,
                         email: _user.email,
                         resources: _user.resources
-                    };
+                    }
+                    */
+                    return _user;
                 },
                 postMessage: function(params, success, error){
                     if(    angular.isUndefined(params) 
@@ -339,16 +402,21 @@
                     //console.log(_getBase64Image(document.getElement));
 
                     //todo: CALLBACK HELL evolve Dataservice methods to fit promises
-                    /*DataService.uploadResc({
+                    DataService.uploadResc({
                         token: _user.token,
                         resc: StorageService.get(params.rescStorageId),
                         filename: params.filename
                     }, function(data){
-                        //console.log(data);*/
-                        var mediaId = '5330dfe0-07d4-11e3-b649-61c8496404cc';
-                       // var mediaId = data.payload;
 
-                        //todo: create ressource
+                        //TODO: add to app-cache to avoid useless download
+
+                        //console.log(data);
+                        //var mediaId = '5330dfe0-07d4-11e3-b649-61c8496404cc';
+                        var mediaId = data.payload;
+
+                        console.log(mediaId);
+
+                        //create ressource
                         DataService.createRsrc({
                             token: _user.token,
                             type: 'image',
@@ -357,7 +425,7 @@
 
                             var rescId = data.payload._id;
                             
-                            //todo: getRoom first from cache
+                            //todo: getRoom first from app-cache
                             DataService.getRoom({
                                 token: _user.token,
                                 type: 'email',
@@ -366,7 +434,7 @@
 
                                var roomId = data.payload;
 
-                                //todo: link ressource to room
+                                //link ressource to room
                                 DataService.ascResc({
                                     token: _user.token,
                                     roomId: roomId,
@@ -382,7 +450,7 @@
                                 }, error); //ascResc
                             }, error); //getRoom
                         }, error); //createRsrc
-                    //}, error); //uploadResc
+                    }, error); //uploadResc
 
                 },
                 getRoomDetails: _getRoomDetails,
@@ -422,7 +490,8 @@
                         //todo: update server API to give back user data (unless we need target user approval) to avoid a request
                         _userContact(params, success, error);
                     }, error);
-                }
+                },
+                getRooms: _getRooms
             };
         });
 

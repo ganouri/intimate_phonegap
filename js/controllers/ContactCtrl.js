@@ -7,10 +7,28 @@
 
             $scope.showAddContact = false;
             $scope.showInviteContact = false;
-            $scope.contacts = UserService.getUser().contacts;
+            $scope.user = UserService.getUser();
+            //$scope.contacts = $scope.user.contacts;
             $scope.symbol = '+';
 
             //console.log($scope.contacts);
+
+            $scope.login = function(){
+                UserService.login({
+                    email    : $scope.user.email,
+                    password : $scope.password
+                }, function(){
+                    //$scope.user = UserService.getUser();
+                    console.log($scope.user);
+                }, function(msg){
+                    //console.log('error:'+msg);
+                    NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)
+                });
+
+                //make sure no trace of the password is kept
+                $scope.password = '';
+                //$scope.user     = UserService.getUser();
+            };
 
             $scope.contactSelected = function(contact){ //todo: make a generic directive to deal with lists
 
@@ -18,7 +36,7 @@
                 if(selectedElmt){
                     var contactId = document.getElementsByClassName('selected-true')[0].getAttribute('id'),
                         id = contactId.substr(8, contactId.length-8);
-                    $scope.contacts[id].selected = false;
+                    $scope.user.contacts[id].selected = false;
                 }
                 contact.selected = contact.selected ? false : true;
 
@@ -73,7 +91,7 @@
                     email: $scope.email
                 }, function(data){
                     console.log(data);
-                    $scope.contacts = UserService.getUser().contacts;
+                    //$scope.user = UserService.getUser();
                     $scope.showAddContact = false;
                 }, function(msg, type){
                     //console.log('error:'+msg);
@@ -89,7 +107,7 @@
                     email: $scope.email
                 }, function(data){
                     console.log(data);
-                    $scope.contacts = UserService.getUser().contacts;
+                    //$scope.user = UserService.getUser();
                     $scope.showInviteContact = false;
                 }, function(msg, type){
                     NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)

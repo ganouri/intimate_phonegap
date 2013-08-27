@@ -11,7 +11,7 @@
         <i class="icon-arrow-down"></i>
       </span>
     </form>
-    <ul id="room-list" ng-show="! roomSelected && user.authenticated" ng-swipe-right="testingNgMobile('ng-swipe-right')" ng-swipe-left="testingNgMobile('ng-swipe-left')" ng-swipe="testingNgMobile('ng-swipe')" ><!-- ng-touch="testingNgMobile('ng-touch')" ng-hold="testingNgMobile('ng-hold')" ng-drag="testingNgMobile('ng-drag')" -->
+    <ul id="room-list" ng-show="! roomSelected && user.authenticated" ng-swipe-right="testingNgMobile('ng-swipe-right')" ng-swipe-left="testingNgMobile('ng-swipe-left')" ng-swipe="refresh('rooms')" ><!-- ng-touch="testingNgMobile('ng-touch')" ng-hold="testingNgMobile('ng-hold')" ng-drag="testingNgMobile('ng-drag')" -->
       <!--li ng-repeat="room in user.rooms" ng-click="navigate('secure/room/'+room.id)"-->
       <li ng-repeat="room in user.rooms" ng-touch="selectRoom(room._id)">
         <p ng-repeat="member in room.members | isContact:user.contacts">&lt; {{member | contactNickname:this}} roomate &gt;</p>
@@ -22,9 +22,14 @@
         <i class="icon-th-large" ng-click="deselectRoom()"></i>
           Room shared with <span ng-repeat="member in room.members | isContact:user.contacts">{{member | contactNickname:this}}</span>
       </div>
-      <div id="interactions">
-          <div class="interaction-done" ng-repeat="interaction in room.corr" ng-class="{right: isContact(interaction.user)}" ng-click="selectInteraction(interaction.resourceId)">
-              {{interaction | interactionView}}
+      <div id="interactions" ng-swipe="refresh('interactions')" >
+          <div class="interaction-done" ng-repeat="interaction in room.corr" ng-class="{right: isContact(interaction.user)}" ng-click="selectInteraction(interaction.resourceId)" id="{{interaction.resourceId}}">
+            <span ng-show="user.resources[interaction.resourceId].media.type=='image'">
+              <img src="" id="{{user.resources[interaction.resourceId].media.content}}" width="50px" height="50px" style="background-color:black;"/>
+            </span>
+            <span ng-show="user.resources[interaction.resourceId].media.type=='text'">
+              {{user.resources[interaction.resourceId].media.content}}
+            </span>
           </div>
       </div>
       <div id="quicktext">

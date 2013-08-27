@@ -1,13 +1,20 @@
 <div class="container page contacts">
-    <form class="form-search">
+    <form class="form-search" ng-show="! user.authenticated">
+      <div class="form-content">
+        <p>Enter your Account<br> Code to access your Contacts</p>
+        <input type="password" class="input-large search-query" placeholder="Password" id="user-password" ng-model="password">
+        <button type="submit" class="btn btn-danger" id="user-auth" ng-click="login()" ng-show="password.length>0">Login</button>
+      </div>
+    </form>
+    <form class="form-search" ng-show="user.authenticated">
         <input id="contactSearch" type="text" ng-model="contactSearch" class="input-medium search-query" placeholder="search contacts"/>
     </form>
     <div class="list">
-        <div class="contact selected-{{contact.selected}}" ng-repeat="(key,contact) in contacts" id="contact_{{key}}" ng-click="contactSelected(contact)">
+        <div class="contact selected-{{contact.selected}}" ng-repeat="(key,contact) in user.contacts" id="contact_{{key}}" ng-click="contactSelected(contact)">
             {{contact | contactLabel}}
         </div>
     </div>
-    <form id="addContactForm" class="form-horizontal" ng-show="showAddContact">
+    <form id="addContactForm" class="form-horizontal" ng-show="showAddContact && user.authenticated" >
         <div class="control-group">
             <label class="control-label" for="inputEmail">Email</label>
             <input type="text" id="inputEmail" placeholder="Email" ng-model="email">
@@ -23,7 +30,7 @@
         <button type="submit" class="btn" ng-click="showInviteContact=false" id="invitecontactcancel">Cancel</button>
     </form>
     <!--button type="submit" class="btn btn-danger" id="contactSelection" ng-click="contactSelection()">Select</button-->
-    <button type="submit" class="btn btn-danger" id="interact" ng-click="showAddContact=!showAddContact" ng-hide="showInviteContact || showAddContact">
+    <button type="submit" class="btn btn-danger" id="interact" ng-click="showAddContact=!showAddContact" ng-hide="showInviteContact || showAddContact || ! user.authenticated">
         <span ng-show="! showAddContact">+</span>
         <span ng-show="showAddContact">-</span>
     </button>

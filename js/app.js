@@ -6,7 +6,8 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
   },
   CFG: {
     'VIEWSPATH': 'js/views',
-    'URI': 'http://localhost:8080'
+    //'URI': 'http://192.168.1.9:8080'
+    'URI': 'http://54.213.95.44:8080'
   }
 })
 
