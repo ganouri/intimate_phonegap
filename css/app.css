@@ -1,393 +1,837 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-
-body{
-  margin: 0px auto;
+html,
+body {
+    margin:0;
+    padding:0;
+    height: 100%;
+    font-size: 108%;
+    line-height: 120%;
 }
 
-.page{
-	background-color: whitesmoke;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
-.starter {
-	background: url("../img/bg-landing.jpg") no-repeat fixed;
-	background-size: 100%;
-}
-
-.btn {
-	height: 73px;
-	font-size: 32px;
-	line-height: 38px;
-	left: 20%;
-	right: 20%;
-	font-weight: bold;
-	letter-spacing: 1.4px;
-	position: fixed;
-	bottom: 1%;
-	-webkit-box-shadow: 5px 5px 5px #888;
-	box-shadow: 5px 5px 5px #888;
-	border-radius: 2%;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	-webkit-tap-highlight-color: transparent; /* For some Androids */
-}
-
-.tapped {
-  -webkit-transform: scale3d(0.9, 0.9, 1);
-}
-
-#signup {
-	bottom: 95px
-}
-
-.form-horizontal{
-	position: relative;
-	top: 20%;
-}
-
-.form-horizontal .control-group {
-	margin: 6% 5% 20% 5%;
-}
-
-.form-horizontal .control-label {
-	margin-right: 19px;
-	float: left;
-	width: 20%;
-	padding-top: 5px;
-	text-align: right;
-	margin: 0 7% 0 0;
-	font-size: 175%;
-	line-height: 210%;
-}
-
-.control-group input {
-	width: 70%;
-	height: 55px;
-	font-size: 32px;
-	line-height: 38px;
-	text-align: center;
-}
-
-
-.form-horizontal .control-group {
-	margin: 6% 5% 20% 5%;
-}
-
-
-.control-group input[type="checkbox"] {
-width: 30px;
-margin: 0 3% 0 0;
-}
-
-.register .checkbox {
-	min-height: 18px;
-	padding-left: 4%;
-	margin-left: 23%;
-	margin-top: 1%;
-	line-height: 2.5;
-	font-size: 137%;
-	line-height: 299%;
-}
-
-.register p {
-	font-size: 118%;
-	left: 21%;
-	right: 20%;
-	position: fixed;
-	bottom: 11%;
-}
-
-ul#room-list{
-	margin: 0 !important;
-	height: 79%;
-	border-bottom: solid 1px grey;
-	z-index: 10;
-	position: absolute;
-	width: 100%;
-	overflow: auto;
-	top: 30px;
-	/*overflow-y: hidden;*/
-	-webkit-overflow-scrolling: touch;
-}
-
-#room-list li{
-	width: 45%;
-	list-style: none;
-	float: left;
-	border: 1px solid #000;
-	border-radius: 4%;
-	height: 23%;
-	margin: 5% 0% 2% 3%;
-	background-color: rgba(233, 230, 230, 0.64);
-	-webkit-box-shadow: 5px 5px 5px #888;
-	box-shadow: 5px 5px 5px #888;
-}
-
-#interact {
-	border-top: solid 13px grey;
-	z-index: 10;
-	border-radius: 52px;
-	width: 160px;
-	height: 110px;
-	font-size: 5em;
-	left: 32.5%;
-	-webkit-box-shadow: 5px 5px 5px #888;
-	box-shadow: 5px 5px 5px #888;
-}
-
-#interact:hover{
-	border-top: solid 4px grey;
-}
-
-.rooms .form-search{
-	/*z-index: 100;*/
-	position: absolute;
-	top: 30px;
-	width: 100%;
-	background-color: whitesmoke;
-	opacity: 0.95;
-	height: 65%;
-}
-
-.rooms .icon-off{
-	position: absolute;
-	top: 10px;
-	left: 10px;
-}
-
-.form-content{
-	margin: 36% 0 0 0;
-	text-align: center;
-	line-height: 130%;
-	font-size: 173%;
-}
-
-.search-query{
-	text-align:center;
-}
-
-.search-query + p{
-	bottom: 21%;
-	position: fixed;
-	left: 9%;
-}
-
-i.icon-arrow-down{
-	bottom: 20%;
-	position: fixed;
-	left: 47%;
-}
-
-#user-password{
-	height: 55px;
-	font-size: 32px;
-	line-height: 38px;
-	width: 80%;
-	font-weight: bold;
-}
-
-#interact-exe{
-	font-size: 23px;
-	bottom: -6px;
-	left: 30%;
-	width: 40%;
-	border-top-right-radius: 70px;
-	border-top-left-radius: 70px;
-	position: absolute;
-	border-bottom-left-radius: 69px;
-	border-bottom-right-radius: 69px;
-	height: 12%;
-}
-
-#interact-back{
-	left: 3%;
-	width: 180px;
-}
-
-#interact-send{
-	width: 180px;
-	left: 60%;
-}
-
-.interaction{
-	height: 94%;
-	background-color:black;
-}
-.interaction img{
-	width: 100%;
-	height: 100%;
-}
-
-.room-label i{
-	position: absolute;
-	left: 15px;
-	top: 17px;
-}
-
-.room-label{
-	background-color: #E8E8E8;
-	opacity: 0.8;
-	height: 6%;
-	text-align: center;
-	width: 100%;
-	line-height: 53px;
-	font-weight: bold;
-	font-size: 27px;
-}
-
-#contactSearch {
-	margin: 20px 15% 0 15%;
-	width: 70%;
-	height: 44px;
-	line-height: 38px;
-	font-size: 29px;
-	font-weight: bold;
-}
-
-#contactSelection{
-	width: 34%;
-	border-radius: 30px;
-	left: 33%;
-}
-
-.contact:nth-child(odd) {background-color: #FFF}
-.contact:nth-child(even) {background-color: whiteSmoke}
-.selected-true{
-	background-color: #ffa5a5 !important;
-	color: white !important;
-	font-weight: bold !important;
-}
-.contact{
-	height: 60px;
-	text-align: left;
-	line-height: 64px;
-	font-size: 31px;
-	color: #005df2;
-	font-weight: normal;
-}
-.interaction-done{
-	width: 60%;
-	margin: 20px;
-	padding: 18px;
-	height: 35px;
-	background-color: #F00;
-	line-height: 40px;
-	font-size: 25px;
-	font-weight: 800;
-}
-
-#user-auth{
-	position: fixed;
-	top: 350px;
-	border-top: solid 9px grey;
-	border-bottom: solid 0px grey;
-}
-
-#user-auth:hover{
-	position: fixed;
-	top: 350px;
-	border-top: solid 3px grey;
+body {
+    font-family: source-sans-pro, sans-serif;
+    position: relative;
+    width: 100%;
+    height:100%;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 /*
-#addcontact{
-	position: fixed;
-	bottom: 40%;
+body.left-nav .topcoat-navigation-bar,
+body.left-nav .app-main-content {
+    left:20%;
 }*/
 
-.rooms p.interact {
-	position: fixed;
-	bottom: 21%;
-	left: 10%;
-	text-align: center;
-	line-height: 130%;
-	font-size: 173%;
+.left-nav {
+  left: 20%;
+  position: absolute;
 }
 
-#inviteContactForm, #addContactForm{
-	width: 100%;
-	background-color: whiteSmoke;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
+.page-wrap {
+  -webkit-transition: all 0.2s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  height: 100%;
+  width: 100%;
 }
 
-#addContactForm .control-group{
-	position: absolute;
-	top: 23%;
-	left: 8%;
-	width: 100%;
+.app-main-content {
+  position: absolute;
+  background: inherit;
+  left: 0;
+  width: 100%;
+  height: 79%; 
+  top: 8%;
+  /*-webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.57);*/
+  overflow: hidden;
+  background-color: white;
 }
 
-#inviteContactForm .control-group{
-	position: absolute;
-	top: 24%;
-	font-size: 17px;
+.app-navigation-bar {
+  position:absolute;
+  padding: 2%;
+  width:100%;
+  z-index:100;
+  /*transition: left 0.2s ease-out;
+  -webkit-transition: left 0.2s ease-out;
+  -webkit-transform: translate3d(0px,0px,0px);*/
+  height: 8%;
 }
 
-#inviteContactForm .control-label{
-	width: 100%;
-	font-weight: bold;
-	text-align: center;
+body.right-nav .app-rooms__container {
+  right: 80%;
 }
 
-#invitecontact, #addcontact{
-	position: absolute;
-	top: 45%;
-	width: 30%;
+input {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-#invitecontactcancel, #addcontactcancel{
-	position: absolute;
-	top: 45%;
-	margin-left: 31%;
+#snap {
+  width: 100%;
+  height: 100%;
 }
 
-#interactions{
-	background-color: white;
-	height: 510px;
+.app-wrap {
+  height: 100%;
+  width: 100%;
 }
 
-#inputQuickMessage{
-	height: 70px;
-	width: 300px;
-	font-size: 25px;
-	line-height: 30px;
-	margin: 5%;
-	resize: none;
-	bottom: 110px;
-	position: absolute;
+.show {
+  display: block;
 }
 
-#postQuickMessage{
-	position: absolute;
-	bottom: 152px;
-	width: 108px;
-	height: 60px;
-	left: 353px;
+.hide {
+  display: none;
 }
 
-.right{
-	margin-left: 29%
+/* topcoat overide with app color */
+.topcoat-button--cta, .topcoat-button--large--cta {
+  background-color: #ff4242;
 }
+
+.right-nav {
+  position:absolute;
+  top:0;
+  left:0;
+  width: 80%;
+  height:100%;
+}
+
+.right-nav-hidden {
+  display:none;
+}
+
+.right-nav-visible {
+  display:block;
+}
+
+.app-navigation-bar__item {
+  line-height: 250%;
+}
+
+.side-nav {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width: 20%;
+    height:100%;
+    background-color:#646474;
+}
+.side-nav__list__container {
+    margin-top:4rem;
+    border-top:none;
+    border-bottom:none;
+}
+.side-nav__list {
+    border-top:none;
+}
+.side-nav__list__item {
+    padding:0;
+    text-align: center;
+}
+
+.side-nav__list__item.is-inactive {
+    background-color:#353535;
+}
+
+.side-nav__list__item.is-active {
+    background-color:#747474;
+}
+
+.side-nav__button {
+    display:block;
+    width:100%;
+    height:100%;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    color: #c6c8c8;
+    text-decoration:none;
+}
+
+.side-nav__button:hover {
+    background-color:#747474;
+}
+
+.side-nav__button:active {
+    background-color:#353572;
+}
+
+.app-icon--animation-rotate[data-active] {
+  background: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-icon--animation-rotate[data-active]:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: url("../img/hamburger_dark.svg") no-repeat;
+  background-size: cover;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+
+.app-control-bar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 13%;
+  padding: 1%;
+}
+
+.app-control-bar__btn {
+  height: 100%;
+  padding: 1% 0 0.5% 0;
+}
+
+.app-button--large--cta__control-bar {
+  padding-top: 2%;
+  background-color: red;
+  opacity: 0.8;
+  border-radius: 42%;
+  font-size: 1.1rem;
+  height: 100%;
+  width: 25%;
+}
+
+.app-rooms__room {
+  line-height: 5rem;
+  height: 5rem;
+}
+
+.app-rooms__room:nth-child(even) {
+  background-color: whitesmoke;
+}
+
+.app-rooms__room--details {
+  display: block;
+  line-height: 2.5rem;
+}
+
+.app-rooms__room--details__area {
+  float: left;
+}
+
+/*
+.app-rooms__room--lastupdate {
+  right: 0px;
+  position: absolute;
+}*/
+
+.highlight {
+  color: red;
+  font-weight: bold;
+}
+
+.app-rooms__container {
+  background-color: white;
+  height: 99%;
+}
+
+.app-interactions {
+  height: 86%;
+  background-color: white;
+}
+
+
+/* refresh interactions */
+.app-interactions__refresh {
+  position: absolute;
+  top: -8%;
+  margin: 0 33% 0 33%;
+  background-color: white;
+  border: none;
+}
+
+.app-interactions__refresh[data-loading] {
+  top: 0;
+}
+
+.app-interactions__list,
+.app-rooms__list {
+  overflow: auto;
+  height: 86%;
+  top: 0%;
+  position: absolute;
+  border: none;
+  -webkit-transition: 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+  -o-transition: 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+  transition: 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+}
+
+.app-rooms__list {
+  width: 100%;
+  height: 100%;
+}
+
+.app-interactions__list[data-loading],
+.app-rooms__list[data-loading] {
+  top: 8%;
+  height: 78%;
+}
+
+.app-interactions__inter {
+  background-color: whitesmoke;
+  margin: 1.5% 0 5% 0;
+  font-weight: bolder;
+  font-size: 1.1rem;
+  min-height: 80px;
+  padding: 0;
+}
+
+.app-interactions__inter--false {
+  margin-right: 30%;
+  margin-left: 2%;
+  text-align: left;
+  border-left: 1px solid black;
+}
+
+.app-interactions__inter--true {
+  margin-left: 30%;
+  margin-right: 2%;
+  text-align: right;
+  border-right: 1px solid black;
+}
+
+.app-contacts,
+.app-messages {
+  padding: 2% 1% 1% 2%;
+  height: 100%;
+  background-color: whitesmoke;
+}
+
+.app-contacts__user {
+  float: left;
+  text-align: center;
+  height: 98%;
+}
+
+.app-contacts__me,
+.app-contacts__notme {
+  font-size: 1.6rem;
+  font-weight: bold;
+  height: 80%;
+}
+
+.app-contacts__me {
+  text-align: right;
+}
+
+.app-contacts__notme {
+  text-align: left;
+}
+
+.app-contacts__refresh {
+  margin: 0 2.5% 0 2.5%;
+  width: 28%;
+}
+
+.app-interactions__info {
+  text-align: center;
+  display: block;
+  min-height: 80px;
+  width: 30px;
+}
+
+.app-interactions__info--false{
+  float: right;
+}
+
+.app-interactions__info--true{
+  float: left;
+}
+
+.app-interactions__content {
+  display: block;
+  margin: 5px;
+}
+
+.app-interactions__camera--thumbnails {
+  width:45px;
+  height:45px;
+}
+
+
+/** Modal **/
+.app-modal-wrap {
+  min-width: 0px;
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+.app-modal-body {
+  padding: 2%;
+  height: 76%;
+  background-color: whitesmoke;
+}
+
+.app-modal-full {
+  height: 100%;
+  background-color: whitesmoke;
+}
+
+.app-modal-half {
+  margin-top: 50%;
+}
+
+.app-modal-footer {
+  height: 4rem;
+  padding: 2%;
+}
+
+.app-modal-body__closedrequest{
+  display: none;
+}
+
+.app-modal-body__interaction--image {
+  padding: 0;
+  height: 80%;
+}
+
+
+
+
+.effeckt-overlay {
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.app-interaction-body {
+  height: 100%;
+  width: 100%;
+}
+
+.app-interaction-header {
+  height: 8%;
+}
+
+.app-interaction-contents {
+  height: 83%;
+}
+
+.app-interaction-contents__image {
+  height: 100%;
+}
+
+.app-interaction-footer {
+  height: 9%;
+  padding: 2% 0 0% 0;
+}
+
+.app-contacts__container {
+  height: 88%;
+  background-color: white;
+}
+
+.app-contacts__list {
+  background-color: white;
+  height: 96%;
+  width: 100%;
+}
+
+.app-contacts__item {
+  border-bottom: 1px solid #bcbfbf;
+  width: 48%;
+  height: 110px;
+  float: left;
+  background-color: whitesmoke;
+  margin: 1%;
+  padding: 0%;
+}
+
+.app-contacts__item--info,
+.app-contacts__item--actions {
+  float: left;
+  height: 90%;
+  margin: 2% 0 0 0;
+}
+
+.app-contacts_item-edit{
+  margin: 0 0 2px 0;
+}
+
+.app-contacts_item-edit,
+.app-contacts_item-delete,
+.app-contacts_item-error,
+.app-contacts_item-invitation {
+  padding: 0 1rem;
+}
+
+.app-contacts__item--content--thumbnails {
+  width: 35px;
+  height: 35px;
+}
+
+.app-search__container {
+  padding-left: 18%;
+  padding-top: 1.5%;
+}
+
+.app-search-input {
+  text-align: center;
+  width: 76%;
+}
+
+.app-contacts__item--pending {
+  opacity: 0.6;
+}
+
+.app-contacts__item--requested {
+  background-color: yellow;
+  opacity: 0.9;
+}
+
+.app-contacts-contents__add {
+  height: 31%;
+  padding: 1% 1% 0 1%;
+}
+
+.app-contacts-contents__email {
+  width: 80%;
+  text-align: center;
+  margin-left: 10%;
+}
+
+.app-contacts__item--bottom {
+  margin-top: 52px;
+}
+
+.app-text__legal {
+  text-decoration: underline;
+  color: blue;
+}
+
+.app-legal {
+  height: 100%;
+  min-width: 100%;
+}
+
+.app-legal-body {
+  height: 100%;
+}
+
+.app-legal-contents {
+  height: 76%;
+  padding: 4%;
+  background-color: white;
+}
+
+.app-legal-footer {
+  height: 10%;
+  padding: 2.5%;
+}
+
+.app-autentication {
+  height: 63%;
+  width: 84%;
+  padding: 27% 8% 8% 8%;
+}
+
+.app-password-field {
+  -webkit-text-security: disc;
+}
+
+.app-text-input--authentication {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.app-checkbox__label--authentication {
+  width: 100%;
+}
+
+.app-checkbox--authentication {
+  margin-right: 5%;
+}
+
+.app-text--authentication {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  padding: 0 15% 0 15%;
+}
+
+.app-authenticate {
+  background: rgba(0, 0, 0, 0.5);
+  padding-top: 37%;
+}
+
+.app-authenticate-body {
+  height: 12%;
+}
+
+.app-authenticate-contents__email {
+  width: 80%;
+  text-align: center;
+  margin-left: 10%;
+}
+
+.app-subinteraction {
+  height: 12%;
+}
+
+.app-subinteraction-switch--back {
+  width: 12%;
+  position: absolute;
+  right: 7px;
+}
+
+.app-subinteraction-switch--next {
+  width: 12%;
+  position: absolute;
+  left: 7px;
+  padding: 0;
+  text-align: left;
+}
+
+.app-main-content__home {
+  background: url("../img/bg-landing.jpg") no-repeat fixed;
+  -webkit-background-size: cover;
+  background-size: 100%;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.app-main-content__home--buttons {
+  background-color: white;
+  position: absolute;
+  padding: 15%;
+  height: 17%;
+  bottom: 0;
+  width: 70%;
+}
+
+.app-button__home {
+  width: 100%;
+  margin-bottom: 3%;
+}
+
+
+/* High res */
+@media screen and (min-height: 880px) {
+
+  .topcoat-navigation-bar {
+    height: 10%;
+    font-size: 130%;
+  }
+
+  .topcoat-navigation-bar__title {
+    font-size: 160%;
+    font-weight: bold;
+  }
+
+  .topcoat-button--cta, .topcoat-button--large--cta{
+    font-size: 150%;
+    font-weight: bold;
+    height: 100%;
+  }
+
+  .topcoat-navigation-bar__item {
+    height: 100%;
+  }
+
+  .app-main-content {
+    height: 78%;
+    top: 10%;
+  }
+
+  .app-modal-footer {
+    height: 11%;
+    padding: 1%;
+  }
+
+  .app-authenticate-contents__button {
+    height: 100%;
+    width: 38%;
+  }
+
+  .app-authenticate-contents__email {
+    height: 85%;
+    font-size: 160%;
+    line-height: 138%;
+  }
+
+  i{
+    font-size: 2em;
+  }
+
+  .app-control-bar {
+    height: 13% !important;
+  }
+
+  .app-button__home {
+    height: 110%;
+    width: 100%;
+    margin-bottom: 2%;
+    font-size: 255%;
+  }
+
+  .app-main-content__home--buttons {
+    background-color: whitesmoke;
+    position: absolute;
+    height: 37%;
+    width: 100%;
+    top: 63cd%;
+    padding: 0;
+  }
+
+  .app-button__home {
+    font-size: 200%;
+    font-weight: bold;
+    height: 38%;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 4%;
+  }
+
+  .app-contacts__item {
+    min-height: 110px;
+    height: 25%;
+    max-height: 210px;
+    width: 46%;
+    margin: 2%;
+  }
+
+  .app-contacts__item--content--thumbnails {
+    width: 39%;
+    height: 50%;
+  }
+
+  .app-contacts__item--content--nickname {
+    font-size: 150%;
+  }
+
+  .app-contacts__item--bottom {
+    padding-top: 8%;
+  }
+
+  .app-modal-half {
+    margin-top: 0;
+    top: 40%;
+    height: 82%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .app-modal-body {
+    height: 7%;
+  }
+
+  .app-button-modal-half {
+    height: 100%;
+    font-size: 152%;
+  }
+
+  .topcoat-text-input {
+    height: 103%;
+    font-size: 190%;
+    line-height: 172%;
+  }
+
+  .app-modal-body--full {
+    height: 79%;
+  }
+
+  .app-authentication {
+    padding: 23% 8% 8% 8%;
+  }
+
+  .app-text-input--authentication {
+    height: 20%;
+    font-size: 160%;
+    line-height: 140%;
+  }
+
+  .selected-true {
+    background-color: yellow;
+    opacity: 0.8;
+  }
+
+  .app-rooms__room {
+    min-height: 5rem;
+    height: 20%;
+    max-height: 160px;
+  }
+
+  .app-rooms__room--details {
+    font-size: 150%;
+    line-height: 140%;
+  }
+
+  .app-interactions__list {
+    width: 100%;
+  }
+
+  .app-interactions__inter {
+    width: 66%;
+  }
+
+  .app-contacts__refresh{
+    height: 70%;
+  }
+
+}
+/* @media screen and (min-width: 880px) {
+@media screen and (min-width: 640px) {
+    .slide-menu-button {
+        display:none;
+    }
+    .app-main-content {
+        left:320px;
+        right:0;
+        width:auto;
+    }
+}*/
+
+/*
+span.eye {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: #000;
+  position: relative;
+  border-radius: 65% 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  font-size: 54px;
+z-index: 10;
+float: left;
+left: 46px;
+opacity: 0.3;
+}
+
+span.eye:before, span.eye:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    border-radius: 100%;
+}
+
+span.eye:before {
+    height: .5em;
+    width: .5em;
+    background: #fff;
+    margin-top: -.25em;
+    margin-left: -.25em;
+}
+span.eye:after {
+    height: .25em;
+    width: .25em;
+    background: #000;
+    margin-top: -.125em;
+    margin-left: -.125em;
+}
+*/

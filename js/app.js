@@ -6,8 +6,10 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
   },
   CFG: {
     'VIEWSPATH': 'js/views',
+    //'URI': 'http://localhost:8080'
     //'URI': 'http://192.168.1.9:8080'
     'URI': 'http://54.213.95.44:8080'
+    //'URI': 'http://192.168.90.7:8080'
   }
 })
 
@@ -62,7 +64,7 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
   angular.forEach(cordovaEvents, function(evtName){
     document.addEventListener(evtName, test, false);
   });
-  
+
   function test(){
     console.log('message');
   }*/
@@ -85,7 +87,7 @@ angular.module('App', ['ngMobile', 'ui.compat', 'angular-cache'])
 
   $rootScope.autoRooting = function(){
     var logged = window.localStorage.getItem('user.logged') || undefined;
-    
+
     if( angular.isDefined(logged) ){
       $rootScope.navigate("/secure/rooms");
       //$rootScope.navigate("/interaction/snap");

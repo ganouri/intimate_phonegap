@@ -1,9 +1,11 @@
 (function(angular) {
     'use strict';
-    
+
     angular.module('App').
         controller("InteractionCtrl", function ($scope, $stateParams, NotificationService, StorageService) {
             console.log('InteractionCtrl');
+
+            var navigate = $scope.navigate;
 
 
             function _getBase64Image(imgElem) {
@@ -31,15 +33,17 @@
                                         encodingType: 0,     // 0=JPG 1=PNG
                                         correctOrientation: true
                                     };
-            
+
                     navigator.camera.getPicture(
                         function(imageData) {
                             //document.getElementById('snap').setAttribute('src', "data:image/jpeg;base64," + imageData);
                             document.querySelector('img').setAttribute('src', imageData);
                             StorageService.put('resc.snap', imageData);
+                            navigate('/secure/contacts');
                         },
                         function() {
-                            console.log('Error taking picture', 'Error');
+                            //console.log('Error taking picture', 'Error');
+                            navigate('/secure/rooms');
                         },
                         options
                     );
@@ -50,6 +54,7 @@
                     //console.log(_getBase64Image(elmt));
                     //StorageService.put('rsrc.base64', _getBase64Image(elmt));
                     StorageService.put('resc.snap', imageData);
+                    //navigate('/secure/contacts');
                 }
                 return false;
             };

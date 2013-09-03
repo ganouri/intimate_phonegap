@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    
+
     angular.module('App').
         controller("ContactCtrl", function ($scope, UserService, NotificationService) {
             console.log('ContactCtrl');
@@ -31,7 +31,9 @@
             };
 
             $scope.contactSelected = function(contact){ //todo: make a generic directive to deal with lists
-
+                console.log('contactSelected:', contact);
+                $scope.receiver = contact;
+                /*
                 var selectedElmt = document.getElementsByClassName('selected-true')[0] || undefined;
                 if(selectedElmt){
                     var contactId = document.getElementsByClassName('selected-true')[0].getAttribute('id'),
@@ -39,25 +41,22 @@
                     $scope.user.contacts[id].selected = false;
                 }
                 contact.selected = contact.selected ? false : true;
+                */
+            };
 
-                
+            $scope.executeAction = function(){
                 UserService.createResc({
-                    email: contact.email,
+                    email: $scope.receiver.email,
                     rescStorageId: 'resc.snap',
                     filename: 'MyTest.jpg'
                 }, function(data){
                     var roomId = data.roomId;
-                    //console.log(roomId);
-                    $scope.navigate('/secure/rooms?roomId='+roomId); //not working yet
-                    //console.log('back to contactSelected');
+                    $scope.navigate('/secure/rooms');
                 }, function(msg){
                     //console.log('error:'+msg);
                     NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop);
                 });
-                
-
-            };
-
+            }
             /*$scope.uploadFile = function((files) {
                 var fd = new FormData();
                 //Take the first selected file
@@ -90,13 +89,11 @@
                 UserService.addContact({
                     email: $scope.email
                 }, function(data){
-                    console.log(data);
-                    //$scope.user = UserService.getUser();
-                    $scope.showAddContact = false;
+                    $scope.email = '';
                 }, function(msg, type){
                     //console.log('error:'+msg);
                     //console.log(type);
-                    $scope.showAddContact = false;
+                    //$scope.showAddContact = false;
                     $scope.showInviteContact = true;
                 });
             };

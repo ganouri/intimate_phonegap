@@ -1,41 +1,223 @@
-<div class="container page rooms" >
-    <i class="icon-off" ng-click="logout()" ng-hide="roomSelected && user.authenticated"></i>
-    <form class="form-search" ng-show="! user.authenticated">
-      <div class="form-content">
-        <p>Enter your Account<br> Code to access your Kokoons</p>
-        <input type="password" class="input-large search-query" placeholder="Password" id="user-password" ng-model="password">
-        <button type="submit" class="btn btn-danger" id="user-auth" ng-click="login()" ng-show="password.length>0">Login</button>
+<div class="effeckt-modal-wrap app-modal-wrap" id="effeckt-modal-wrap">
+  <div class="effeckt-modal topcoat-overlay app-modal-half hide" id="effeckt-modal">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Logout</h1>
       </div>
-      <span ng-show="! user.authenticated || user.rooms.length == 0">
-        <p class="interact">Start interacting now<br> with new or existing Kokoon contacts</p>
-        <i class="icon-arrow-down"></i>
-      </span>
-    </form>
-    <ul id="room-list" ng-show="! roomSelected && user.authenticated" ng-swipe-right="testingNgMobile('ng-swipe-right')" ng-swipe-left="testingNgMobile('ng-swipe-left')" ng-swipe="refresh('rooms')" ><!-- ng-touch="testingNgMobile('ng-touch')" ng-hold="testingNgMobile('ng-hold')" ng-drag="testingNgMobile('ng-drag')" -->
-      <!--li ng-repeat="room in user.rooms" ng-click="navigate('secure/room/'+room.id)"-->
-      <li ng-repeat="room in user.rooms" ng-touch="selectRoom(room._id)">
-        <p ng-repeat="member in room.members | isContact:user.contacts">&lt; {{member | contactNickname:this}} roomate &gt;</p>
-      </li>
-    </ul>
-    <div ng-show="roomSelected && user.authenticated">
-      <div class="room-label">
-        <i class="icon-th-large" ng-click="deselectRoom()"></i>
-          Room shared with <span ng-repeat="member in room.members | isContact:user.contacts">{{member | contactNickname:this}}</span>
+    </div>
+    <div class="app-modal-body app-modal-body__closedrequest">
+    </div>
+    <div class="topcoat-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".side-nav__logout" data-modal-action="close" data-modal-click="logout()" class="topcoat-button--cta third app-button-modal-half">Yes</button>
+        <button effeckt-modal=".side-nav__logout" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
       </div>
-      <div id="interactions" ng-swipe="refresh('interactions')" >
-          <div class="interaction-done" ng-repeat="interaction in room.corr" ng-class="{right: isContact(interaction.user)}" ng-click="selectInteraction(interaction.resourceId)" id="{{interaction.resourceId}}">
-            <span ng-show="user.resources[interaction.resourceId].media.type=='image'">
-              <img src="" id="{{user.resources[interaction.resourceId].media.content}}" width="50px" height="50px" style="background-color:black;"/>
-            </span>
-            <span ng-show="user.resources[interaction.resourceId].media.type=='text'">
-              {{user.resources[interaction.resourceId].media.content}}
-            </span>
-          </div>
+    </div>
+  </div>
+  <div class="effeckt-modal topcoat-overlay app-modal-half hide" id="effeckt-modal-settings">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Settings</h1>
       </div>
-      <div id="quicktext">
-        <textarea row="2" id="inputQuickMessage" placeholder="quick text" ng-model="message"></textarea>
-        <button type="submit" class="btn btn-danger" ng-click="postMessage()" id="postQuickMessage" >Send</button>
+    </div>
+    <div class="app-modal-body">
+    Not just yet available
+    </div>
+    <div class="topcoat-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".side-nav__settings" data-modal-action="close" class="topcoat-button--cta third app-button-modal-half">Save</button>
+        <button effeckt-modal=".side-nav__settings" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="effeckt-modal topcoat-overlay app-modal-full hide" id="effeckt-modal-profile">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Profile</h1>
+      </div>
+    </div>
+    <div class="app-modal-body--full">
+    Not just yet available
+    </div>
+    <div class="topcoat-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".side-nav__profile" data-modal-action="close" class="topcoat-button--cta third app-button-modal-half">Save</button>
+        <button effeckt-modal=".side-nav__profile" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="effeckt-modal topcoat-overlay app-modal-full hide" id="effeckt-modal-inter">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Interaction
+          <span class="topcoat-icon topcoat-icon--camera app-navigation-bar__icon">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+        </h1>
+      </div>
+    </div>
+    <div class="app-modal-body--full app-modal-body__interaction--image">
+      <img src="" class="app-interaction-contents__image">
+    </div>
+    <div class="topcoat-navigation-bar app-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".app-interactions__inter" data-modal-action="close" class="topcoat-button--cta">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="effeckt-overlay no-transitions" id="effeckt-modal-overlay"></div>
+<nav class="side-nav">
+  <ul class="topcoat-list">
+    <li ng-class="{hide: ! user.authenticated}" class="topcoat-list__item side-nav__list__item">
+      <a effeckt-modal="effeckt-modal-profile" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-2" class="side-nav__button side-nav__profile">
+        <i class="icon-user icon-large"></i>
+      </a>
+    </li>
+    <li ng-class="{hide: ! user.authenticated}" class="topcoat-list__item side-nav__list__item">
+      <a effeckt-modal="effeckt-modal-settings" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-2" class="side-nav__button side-nav__settings">
+        <i class="icon-gears icon-large"></i>
+      </a>
+    </li>
+    <li class="topcoat-list__item side-nav__list__item">
+      <a effeckt-modal="effeckt-modal" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-16" class="side-nav__button side-nav__logout">
+        <i class="icon-unlock icon-large"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+<div class="page-wrap">
+  <div class="topcoat-navigation-bar app-navigation-bar" ng-show="! roomSelected">
+      <div effeckt-slide="#slide-menu-button" class="topcoat-navigation-bar__item left quarter app-navigation-bar__item">
+          <a class="topcoat-icon-button--quiet slide-menu-button">
+              <i class="icon-align-justify icon-large" id="slide-menu-button"></i>
+          </a>
+      </div>
+      <div class="topcoat-navigation-bar__item center half app-navigation-bar__item">
+          <h1 class="topcoat-navigation-bar__title">Rooms
+            <i class="icon-home"></i>
+          </h1>
       </div>
   </div>
-    <button type="submit" class="btn btn-danger" id="interact" ng-click="snap()" >+</button><!-- bypass interact -->
+  <div class="topcoat-navigation-bar app-navigation-bar" ng-show="roomSelected">
+      <div class="topcoat-navigation-bar__item left quarter app-navigation-bar__item">
+          <a ng-click="deselectRoom()" id="slide-left-button" class="topcoat-icon-button--quiet slide-left-button">
+              <i class="icon-chevron-left icon-large icon-border"></i>
+          </a>
+      </div>
+      <div class="topcoat-navigation-bar__item center half app-navigation-bar__item">
+          <h1 class="topcoat-navigation-bar__title">Interactions
+            <i class="icon-home"></i>
+          </h1>
+      </div>
+  </div>
+  <div class="app-main-content" ng-show="! user.authenticated">
+    <div class="app-modal-full app-authenticate">
+      <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item center full">
+          <h1 class="topcoat-navigation-bar__title">Authenticate</h1>
+        </div>
+      </div>
+      <div class="app-modal-body app-authenticate-body">
+        <input ng-model="password" type="password" class="topcoat-text-input app-authenticate-contents__email" value="" placeholder="Password">
+      </div>
+      <div class="topcoat-navigation-bar app-modal-footer">
+        <div class="topcoat-navigation-bar__item center full">
+          <button ng-click="login()" class="topcoat-button--cta third app-authenticate-contents__button">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-main-content" ng-show="user.authenticated && ! roomSelected">
+    <button class="effeckt-button slide-down topcoat-button app-interactions__refresh third">
+      <span class="label">
+        &nbsp;
+      </span>
+     <span class="spinner"></span>
+    </button>
+    <div class="topcoat-list__container app-rooms__container">
+      <ul class="topcoat-list app-rooms__list" ng-swipe="refreshRooms()">
+        <li class="topcoat-list__item app-rooms__room" ng-repeat="room in user.rooms" ng-click="selectRoom(room._id)">
+          <div class="app-rooms__room--details__area half left">
+            <span class="app-rooms__room--details app-rooms__room--whom" ng-repeat="member in room.members | isContact:user.contacts">{{member | contactNickname:this}}'s room</span>
+            <span class="app-rooms__room--details app-rooms__room--lastupdate">8/17, 02:38p</span>
+          </div>
+          <div class="app-rooms__room--details__area half right">
+            <span class="app-rooms__room--details app-rooms__room--contents">
+                <span class="topcoat-icon topcoat-icon--arrow_up icon-small">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <span class="app-rooms__room--details_label">&nbsp;&nbsp;3/2&nbsp;&nbsp;</span>
+                <span class="topcoat-icon topcoat-icon--download icon-small">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+            </span>
+            <span class="app-rooms__room--details app-rooms__room--overview">
+                <span class="app-rooms__room--details_label">1/1&nbsp;</span>
+                <span class="topcoat-icon topcoat-icon--chat icon-small">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>&nbsp;&nbsp;&nbsp;
+                <span class="app-rooms__room--details_label">1/1&nbsp;</span>
+                <span class="topcoat-icon topcoat-icon--camera icon-small">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="app-main-content" ng-show="user.authenticated && roomSelected">
+    <button class="effeckt-button slide-down topcoat-button app-interactions__refresh third">
+      <span class="label">
+        &nbsp;
+      </span>
+     <span class="spinner"></span>
+    </button>
+    <div class="topcoat-list__container app-list__container app-interactions">
+      <ul class="topcoat-list app-interactions__list">
+        <li ng-repeat="interaction in room.corr" effeckt-modal="effeckt-modal-inter" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-12" data-modal-click="selectResc(user.resources[interaction.resourceId].media.content)" class="topcoat-list__item app-interactions__inter app-interactions__inter--{{isContact(interaction.user)}}" >
+          <span class="app-interactions__info app-interactions__info--{{isContact(interaction.user)}}">
+              <!--span class="topcoat-icon topcoat-icon--camera icon-small">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="topcoat-icon topcoat-icon--lock icon-small">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span-->
+          </span>
+          <span class="app-interactions__content">
+            <img ng-show="user.resources[interaction.resourceId].media.type=='image'" src="" id="{{user.resources[interaction.resourceId].media.content}}" class="app-interactions__camera--thumbnails"/>
+            <span ng-show="user.resources[interaction.resourceId].media.type=='text'">{{user.resources[interaction.resourceId].media.content}}</span>
+          </span>
+          <br/><span class="app-interactions__date">{{interaction.lastUpdated | date:'medium'}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="app-subinteraction" data-ng-init="pane='right'">
+      <div class="app-messages" data-ng-show="pane=='left'" >
+        <input ng-model="message" type="text" class="topcoat-text-input--large" value="" placeholder="text">
+        <button ng-click="postMessage()" class="topcoat-button--large" >Send</button>
+        <button data-ng-click="pane='right'" class="topcoat-button--large--quiet app-subinteraction-switch--back" >
+          <i class="icon-reply"></i>
+        </button>
+      </div>
+      <div class="app-contacts" data-ng-show="pane=='right'" >
+        <button data-ng-click="pane='left'" class="topcoat-button--large--quiet app-subinteraction-switch--next" >
+          <i class="icon-share-alt"></i>
+        </button>
+        <div class="app-contacts__user app-contacts__me third">Me</div>
+        <button ng-click="refreshRooms()" effeckt-button=".app-interactions__refresh .app-interactions__list" data-effeckt-button-type="trigger" class="topcoat-button app-contacts__user app-contacts__refresh third">
+          <i class="icon-refresh"></i>
+        </button>
+        <div class="app-contacts__user app-contacts__notme third" ng-repeat="member in room.members | isContact:user.contacts">{{member | contactNickname:this}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="topcoat-navigation-bar app-navigation-bar app-control-bar">
+    <div class="topcoat-navigation-bar__item app-control-bar__btn center full">
+        <button ng-click="snap()" effeckt-button=".app-interactions__refresh .app-rooms__list" data-effeckt-button-type="trigger" class="topcoat-button--large--cta app-button--large--cta__control-bar" >
+          <i class="icon-plus icon-2x"></i>
+        </button>
+    </div>
+  </div>
 </div>

@@ -1,37 +1,111 @@
-<div class="container page contacts">
-    <form class="form-search" ng-show="! user.authenticated">
-      <div class="form-content">
-        <p>Enter your Account<br> Code to access your Contacts</p>
-        <input type="password" class="input-large search-query" placeholder="Password" id="user-password" ng-model="password">
-        <button type="submit" class="btn btn-danger" id="user-auth" ng-click="login()" ng-show="password.length>0">Login</button>
+<div class="effeckt-modal-wrap app-modal-wrap" id="effeckt-modal-wrap"> <!-- for centering transform -->
+  <div class="effeckt-modal topcoat-overlay app-modal-half hide" id="effeckt-modal-add-contact">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Add contact</h1><!-- Add (form), Invite (yes/no), Delete (yes/no).. -->
       </div>
-    </form>
-    <form class="form-search" ng-show="user.authenticated">
-        <input id="contactSearch" type="text" ng-model="contactSearch" class="input-medium search-query" placeholder="search contacts"/>
-    </form>
-    <div class="list">
-        <div class="contact selected-{{contact.selected}}" ng-repeat="(key,contact) in user.contacts" id="contact_{{key}}" ng-click="contactSelected(contact)">
-            {{contact | contactLabel}}
-        </div>
     </div>
-    <form id="addContactForm" class="form-horizontal" ng-show="showAddContact && user.authenticated" >
-        <div class="control-group">
-            <label class="control-label" for="inputEmail">Email</label>
-            <input type="text" id="inputEmail" placeholder="Email" ng-model="email">
+    <div class="app-modal-body"><!-- app-contacts-contents__add app-contact-contents__closedrequest -->
+      <input ng-model="email" type="email" class="topcoat-text-input app-contacts-contents__email" value="" placeholder="email">
+    </div>
+    <div class="topcoat-navigation-bar app-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".app-button__addcontact" data-modal-action="close" data-modal-click="addContact()" class="topcoat-button--cta third app-button-modal-half">Add</button>
+        <button effeckt-modal=".app-button__addcontact" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="effeckt-modal topcoat-overlay app-modal-half hide" id="effeckt-modal-dual">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Block contact</h1><!-- Invite (yes/no), Block (yes/no), Accept(yes/no) -->
+      </div>
+    </div>
+    <div class="app-modal-body app-modal-body__closedrequest">
+    </div>
+    <div class="topcoat-navigation-bar app-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".app-contacts_item-error" data-modal-action="close" class="topcoat-button--cta third app-button-modal-half">Block</button>
+        <button effeckt-modal=".app-contacts_item-error" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="effeckt-modal topcoat-overlay app-modal-half hide" id="effeckt-modal-send">
+    <div class="topcoat-navigation-bar">
+      <div class="topcoat-navigation-bar__item center full">
+        <h1 class="topcoat-navigation-bar__title">Send to {{receiver.nickname}}</h1><!-- Invite (yes/no), Block (yes/no), Accept(yes/no) -->
+      </div>
+    </div>
+    <div class="app-modal-body app-modal-body__closedrequest">
+    </div>
+    <div class="topcoat-navigation-bar app-navigation-bar app-modal-footer">
+      <div class="topcoat-navigation-bar__item center full">
+        <button effeckt-modal=".app-contacts_item-error" data-modal-action="close" data-modal-click="executeAction()" class="topcoat-button--cta third app-button-modal-half">Yes</button>
+        <button effeckt-modal=".app-contacts_item-error" data-modal-action="close" class="topcoat-button third app-button-modal-half">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="effeckt-overlay no-transitions" id="effeckt-modal-overlay"></div>
+
+<div class="page-wrap">
+  <div class="topcoat-navigation-bar app-navigation-bar">
+      <div class="topcoat-navigation-bar__item left quarter app-navigation-bar__item">
+          <a ng-click="navigate('/secure/rooms')" id="slide-left-button" class="topcoat-icon-button--quiet slide-left-button">
+              <i class="icon-chevron-left icon-large icon-border"></i>
+          </a>
+      </div>
+      <div class="topcoat-navigation-bar__item center half app-navigation-bar__item">
+          <h1 class="topcoat-navigation-bar__title">Contacts
+            <i class="icon-book"></i>
+          </h1>
+      </div>
+  </div>
+  <div class="app-main-content" ng-show="! user.authenticated">
+    <div class="app-modal-full app-authenticate">
+      <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item center full">
+          <h1 class="topcoat-navigation-bar__title">Authenticate</h1>
         </div>
-        <button type="submit" class="btn btn-danger" ng-click="addContact()" id="addcontact">Add</button>
-        <button type="submit" class="btn" ng-click="showAddContact=false" id="addcontactcancel">Cancel</button>
-    </form>
-    <form id="inviteContactForm" class="form-horizontal" ng-show="showInviteContact">
-        <div class="control-group">
-            <label class="control-label">Invite this new contact to Intimate</label>
+      </div>
+      <div class="app-modal-body app-authenticate-body">
+        <input ng-model="password" type="password" class="topcoat-text-input app-authenticate-contents__email" value="" placeholder="Password">
+      </div>
+      <div class="topcoat-navigation-bar app-modal-footer">
+        <div class="topcoat-navigation-bar__item center full">
+          <button ng-click="login()" class="topcoat-button--cta third app-authenticate-contents__button">Login</button>
         </div>
-        <button type="submit" class="btn btn-danger" ng-click="inviteContact()" id="invitecontact">Invite</button>
-        <button type="submit" class="btn" ng-click="showInviteContact=false" id="invitecontactcancel">Cancel</button>
-    </form>
-    <!--button type="submit" class="btn btn-danger" id="contactSelection" ng-click="contactSelection()">Select</button-->
-    <button type="submit" class="btn btn-danger" id="interact" ng-click="showAddContact=!showAddContact" ng-hide="showInviteContact || showAddContact || ! user.authenticated">
-        <span ng-show="! showAddContact">+</span>
-        <span ng-show="showAddContact">-</span>
-    </button>
+      </div>
+    </div>
+  </div>
+  <div class="app-main-content" ng-show="user.authenticated">
+    <div class="topcoat-list__container app-contacts__container">
+      <ul class="topcoat-list app-contacts__list">
+        <li class="topcoat-list__item app-contacts__item app-contacts__item selected-{{contact.selected}}" ng-repeat="(key,contact) in user.contacts" id="contact_{{key}}">
+          <div effeckt-modal="effeckt-modal-send" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-8" data-modal-click="contactSelected(contact)" class="app-contacts__item--info two-thirds">
+            <span class="app-contacts__item--content">
+              <img src="" class="app-contacts__item--content--thumbnails icon-meh"/><br/>
+              <span class="app-contacts__item--content--nickname">{{contact | contactLabel}}</span><br/>
+              <span class="app-contacts__item--content--lastinteraction">8/22, 09:29p</span>
+            </span>
+          </div>
+          <div class="app-contacts__item--actions third">
+            <button effeckt-modal="effeckt-modal-dual" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-8" class="topcoat-button app-contacts_item-error app-contacts__item--bottom">
+              <i class="icon-ban-circle icon-large"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="app-search__container">
+      <input type="search"value="" placeholder="contact search" class="topcoat-search-input app-search-input">
+    </div>
+  </div>
+  <div class="topcoat-navigation-bar app-navigation-bar app-control-bar">
+    <div class="topcoat-navigation-bar__item app-control-bar__btn center full">
+        <button effeckt-modal="effeckt-modal-add-contact" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-23" class="topcoat-button--large--cta app-button--large--cta__control-bar app-button__addcontact" >
+          <i class="icon-plus icon-2x"></i>
+        </button>
+    </div>
+  </div>
 </div>

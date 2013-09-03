@@ -1,19 +1,52 @@
-<div class="container page register">
-    <form class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="inputEmail">Email</label>
-            <input type="text" id="inputEmail" placeholder="Email" ng-model="user.email">
+<div class="effeckt-modal-wrap app-legal" id="effeckt-modal-wrap">
+    <div class="effeckt-modal topcoat-overlay app-legal-body" id="effeckt-modal">
+        <div class="topcoat-navigation-bar app-legal-header">
+          <div class="topcoat-navigation-bar__item center full">
+            <h1 class="topcoat-navigation-bar__title">Legal shit</h1>
+          </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" placeholder="Password" ng-model="user.password">
-            <label class="checkbox" ng-show=" action.type=='signup' ">
-              <input type="checkbox"> Show password
-            </label>
+        <div class="app-legal-contents">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
-        <div class="control-group">
-            <p ng-show=" action.type=='signup' ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By clicking on "Create account",<br/> you accept our <a href="#/termsandconditions">Terms and conditions</a></p>
-                <button type="submit" class="btn btn-danger" id="user-login" ng-click="execute()">{{action.label}}</button>
+        <div class="topcoat-navigation-bar app-navigation-bar app-legal-footer">
+          <div class="topcoat-navigation-bar__item center full">
+            <button effeckt-modal=".app-text__legal" data-modal-action="close" class="topcoat-button--cta third app-legal__button--positif">Accept</button>
+            <button effeckt-modal=".app-text__legal" data-modal-action="close" class="topcoat-button third app-legal__button--negatif">Decline</butto>
+          </div>
         </div>
+    </div>
+</div>
+<div class="effeckt-overlay no-transitions" id="effeckt-modal-overlay"></div>
+<div class="page-wrap">
+    <div class="topcoat-navigation-bar app-navigation-bar">
+      <div class="topcoat-navigation-bar__item left quarter app-navigation-bar__item">
+          <a ng-click="navigate('home')" id="slide-left-button" class="topcoat-icon-button--quiet slide-left-button">
+            <i class="icon-chevron-left icon-large icon-border"></i>
+          </a>
+      </div>
+      <div class="topcoat-navigation-bar__item center half app-navigation-bar__item">
+          <h1 class="topcoat-navigation-bar__title">Authentication&nbsp;<i class="icon-group"></i></h1>
+      </div>
+    </div>
+    <div class="app-main-content">
+    <form class="app-autentication">
+      <input ng-show=" action.type=='signup' " ng-model="user.nickname" type="text" class="topcoat-text-input--large app-text-input--authentication" value="" placeholder="Nickname">
+      <input ng-model="user.email" type="text" class="topcoat-text-input--large app-text-input--authentication" value="" placeholder="Email">
+      <input ng-model="user.password" type="text" class="topcoat-text-input--large app-password-field app-text-input--authentication" value="" placeholder="Password">
+      <label class="topcoat-checkbox__label app-checkbox__label--authentication" >
+      <input type="checkbox">
+        <div class="topcoat-checkbox app-checkbox--authentication"></div>Show password
+      </label>
+      <div ng-show=" action.type=='signup' " class="app-text--authentication">By registering you accept <br>Kokoon's <span effeckt-modal="effeckt-modal" data-modal-action="open" data-modal-wrap="effeckt-modal-wrap" data-modal-overlay="effeckt-modal-overlay" data-modal-type="modal-12" class="app-text__legal">terms and conditions</span></div>
     </form>
+    </div>
+    <div class="topcoat-navigation-bar app-navigation-bar app-control-bar">
+    <div class="topcoat-navigation-bar__item app-control-bar__btn center full">
+      <button class="topcoat-button--large--cta" ng-click="execute()">{{action.label}}</button>
+    </div>
 </div>

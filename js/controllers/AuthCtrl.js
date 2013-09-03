@@ -7,7 +7,7 @@
 
             $scope.autoRooting();
 
-            $scope.action = $stateParams.action === 'signup' ? {type: 'signup', label: 'Create account'} : {type: 'login', label: 'Login'}; //todo: use filter to extract label from controller
+            $scope.action = $stateParams.action === 'signup' ? {type: 'signup', label: 'Signup'} : {type: 'login', label: 'Login'}; //todo: use filter to extract label from controller
 
             /*
 				signup and login: required email and password
@@ -16,12 +16,12 @@
 
             $scope.execute = function(){
 
-                console.log('execute:'+$scope.action.type);
-                console.log('execute:'+$scope.user);
+                console.log('execute:', $scope.action.type);
+                console.log('execute:', $scope.user);
 
             	switch($scope.action.type){
             		case 'signup':
-            		case 'login':
+                    case 'login':
             			UserService[$scope.action.type]($scope.user || undefined, function(){
                             //console.log('success');
                             $scope.navigate('/secure/rooms');

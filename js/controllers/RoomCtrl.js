@@ -2,7 +2,7 @@
     'use strict';
     
     angular.module('App').
-        controller("RoomCtrl", function ($scope, $stateParams, $location, UserService, NotificationService) {
+        controller("RoomCtrl", function ($scope, $stateParams, $location, UserService, NotificationService, StorageService) {
             console.log('RoomCtrl');
 
             //todo: update this to rely on StorageService
@@ -50,9 +50,12 @@
             //get user name
             //get interactions list
             //for each interaction, get media
-            $scope.selectRoom = function(roomId){
-                //$scope.roomSelected = UserService.getRoom(roomId);
-                console.log('room selected:'+roomId);
+            $scope.selectRoom = function(roomId, forceRefresh){
+
+                console.log('room selected', $scope.room);
+
+                var forceRefresh = forceRefresh || false;
+
                 UserService.getRoomDetails({
                     roomId: roomId
                 }, function(data){
@@ -66,7 +69,6 @@
                     };
 
                     $location.search($scope.roomSelected); //{a: "b", c: true} 
-                    
 
                 }, function(){
                     NotificationService.alert('Check your connection', "Alert", "Ok", angular.noop)
@@ -76,20 +78,31 @@
                         case 'image':
                             document.getElementById(params.mediaId).setAttribute('src', params.filePath);
                         break;
-                        default:
-                            //document.getElementById(params.rescId).innerHTML=params.rescId+params.type;
-                        break;
                     }
-
-                    //document.getElementById(params.rescId).innerHTML=params.rescId+params.type;
-                    
-                });
+                }, forceRefresh);
             };
 
             $scope.deselectRoom = function(){
                 $scope.room = undefined;
                 $scope.roomSelected = undefined;
                 $location.search({});
+            };
+
+            $scope.refreshRooms = function(){
+                console.log('refreshRooms');
+                if($scope.roomSelected){
+                    $scope.selectRoom($scope.roomSelected.roomId, true);
+                }else{
+                    UserService.getRooms({}, angular.noop, function(){
+                        NotificationService.alert('Failed to resfresh rooms', "Alert", "Ok", angular.noop);
+                    });
+                }
+            };
+
+            $scope.selectResc = function(id){
+                console.log(id);
+                var filePath = StorageService.get(id);
+                document.getElementsByClassName('app-interaction-contents__image')[0].setAttribute('src', filePath);
             };
 
             $scope.snap = function(){
@@ -104,6 +117,7 @@
                     content: $scope.message
                 }, function(data){
                     console.log(data);
+                    $scope.selectRoom($scope.roomSelected.roomId, true);
                 }, function(){
                     NotificationService.alert('Failed to send message', "Alert", "Ok", angular.noop)
                 });
@@ -129,7 +143,7 @@
                 UserService.getRooms({}, function(){
                     console.log('rooms refreshed');
                 }, function(){
-                   NotificationService.alert('Failed to resfresh rooms', "Alert", "Ok", angular.noop) 
+                   NotificationService.alert('Failed to resfresh rooms', "Alert", "Ok", angular.noop);
                 });
             };
 
